@@ -5,8 +5,8 @@
         <v-card class="py-6 px-8 mx-auto" max-width="400">
           <v-card-title class="text-center mb-5">Вход</v-card-title>
           <v-form>
-            <v-text-field />
-            <v-text-field />
+            <v-text-field label="Введите логин" />
+            <v-text-field label="Введите пароль" />
             <v-btn>Войти</v-btn>
           </v-form>
         </v-card>

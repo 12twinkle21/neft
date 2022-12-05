@@ -1,0 +1,75 @@
+$style-border-radius: 2px;
+$style-dark-color-contrast: #ffffff;
+$style-drawer-background: #55524f;
+$style-text-color: #1f1f1f;
+$style-primary-color: #000033;
+
+.v-container-main {
+  padding-top: 0;
+  max-width: 1440px;
+}
+
+a {
+  color: $style-primary-color !important;
+}
+.v-btn,
+.v-card,
+.v-field,
+.v-checkbox {
+  border-radius: $style-border-radius !important;
+}
+.v-selection-control__input > .v-icon {
+  color: $style-primary-color !important;
+  opacity: 1 !important;
+}
+input {
+  color: black !important;
+}
+.vue3-easy-data-table__header th {
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 100%;
+  color: #888888 !important;
+}
+.vue3-easy-data-table__body td {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 17px;
+  color: #55524f !important;
+}
+table {
+  border: 0 !important;
+}
+.vue3-easy-data-table {
+  border: 0 !important;
+}
+.vue3-easy-data-table__body a {
+  color: $style-primary-color;
+}
+.easy-data-table__rows-selector .rows-input__wrapper {
+  border: 1px $style-primary-color solid !important;
+}
+.buttons-pagination .item.button.active {
+  background-color: rgba(236, 90, 41, 0.25) !important;
+  border: none !important;
+  min-width: 22px;
+}
+.buttons-pagination .item {
+  border-radius: 10px !important;
+  color: $style-text-color !important;
+}
+.form-label {
+  color: #888888;
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 100%;
+  margin-bottom: 0.5rem;
+}
+.vue3-easy-data-table__header th {
+  text-align: left !important;
+}
+.v-app-bar.v-toolbar {
+  background: $style-drawer-background !important;
+  color: #ffffff !important;
+}
