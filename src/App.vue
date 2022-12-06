@@ -1,24 +1,33 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-app-bar-title @click="$router.push('/')">Приложение</v-app-bar-title>
-      <user-info :user="userInfo" />
-    </v-app-bar>
+    <main-menu
+      v-if="isLoggedIn"
+      :is-logged-in="isLoggedIn"
+      :logged-user="loggedUser"
+    />
     <v-main>
-      <router-view />
+      <router-view v-if="isLoggedIn" />
+      <login-view v-else />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import UserInfo from "@/components/UserInfo";
+import LoginView from "./views/LoginView";
+import { mapState } from "vuex";
+import MainMenu from "@/components/MainMenu";
+
 export default {
   name: "App",
-  components: { UserInfo },
+  components: { MainMenu, LoginView },
   data() {
-    return {
-      userInfo: { name: "Alex", role: "Admin" },
-    };
+    return {};
+  },
+  computed: {
+    ...mapState("auth", {
+      isLoggedIn: (state) => state.isLoggedIn,
+      loggedUser: (state) => state.user,
+    }),
   },
 };
 </script>

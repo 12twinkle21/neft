@@ -9,7 +9,6 @@
 
 <script>
 import TestInfoList from "@/components/testInfoList";
-
 export default {
   components: {
     TestInfoList,
