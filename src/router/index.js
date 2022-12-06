@@ -19,6 +19,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/testView"),
   },
+  {
+    path: "/changePassword",
+    name: "changePassword",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/ChangePassword"),
+  },
 ];
 
 const router = createRouter({
