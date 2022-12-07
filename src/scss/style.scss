@@ -73,3 +73,11 @@ table {
   background: $style-drawer-background !important;
   color: #ffffff !important;
 }
+
+.carsInfo__inputTitle{
+  margin-bottom: 15px;
+  color: $style-primary-color;
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 100%;
+}

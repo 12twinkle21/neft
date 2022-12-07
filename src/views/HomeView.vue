@@ -5,6 +5,8 @@
       <v-col cols="1"><v-btn to="/login">Вход</v-btn></v-col>
       <v-col cols="1"><v-btn to="/test">Test</v-btn></v-col>
       <v-col cols="2"><v-btn to="/changePassword">Сменить пароль</v-btn></v-col>
+      <v-col cols="2"><v-btn to="/carsInfo">Данные автомобилей</v-btn></v-col>
+      <v-col cols="2"><v-btn to="/searchDrivers">ФИО водителя</v-btn></v-col>
     </v-row>
     <v-row class="mt-2">
       <v-col cols="4">

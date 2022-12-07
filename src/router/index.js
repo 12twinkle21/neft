@@ -25,6 +25,18 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/ChangePassword"),
   },
+  {
+    path: "/carsInfo",
+    name: "carsInfo",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/CarsInfo"),
+  },
+  {
+    path: "/searchDrivers",
+    name: "searchDrivers",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/SearchDrivers"),
+  },
 ];
 
 const router = createRouter({
