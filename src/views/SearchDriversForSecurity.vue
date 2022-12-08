@@ -1,14 +1,11 @@
 <template>
   <v-container class="pb-5">
     <v-row class="flex-column mp-0">
-      <v-card-title class="mb-5">Поиск водителя</v-card-title>
+      <v-card-title class="mb-5"
+        >Водители, прибывающие на загрузку</v-card-title
+      >
       <v-form>
         <v-row class="w-50 mp-0">
-          <v-row class="w-100">
-            <v-col>
-              <v-text-field label="GUID контрагента (клиента)" />
-            </v-col>
-          </v-row>
           <v-row>
             <v-col>
               <p class="carsInfo__inputTitle">Дата начала периода запроса</p>
@@ -55,7 +52,6 @@
         </easy-grid>
       </v-col>
     </v-row>
-    <v-btn to="/addNewCar">Автомобиля в списке нет</v-btn>
   </v-container>
 </template>
 
@@ -77,40 +73,40 @@ export default defineComponent({
       dateBegin: new Date(),
       dateEnd: new Date(),
       columns: [
-        { text: "GUID водителя", value: "test1", sortable: true },
+        { text: "GUID документа", value: "test1", sortable: true },
         {
-          text: "ФИО водителя",
+          text: "Статус документа",
           value: "test2",
           sortable: true,
         },
-        { text: "GUID доверенности", value: "test3", sortable: true },
-        { text: "Номер доверенности", value: "test4", sortable: true },
-        { text: "GUID заказа клиента", value: "test5", sortable: true },
+        { text: "Данные ТС", value: "test3", sortable: true },
+        { text: "ФИО водителя", value: "test4", sortable: true },
+        { text: "Наименование контрагента", value: "test5", sortable: true },
         { text: "Наименование продукта", value: "test6", sortable: true },
       ],
       items: [
         {
           test1: 12345,
-          test2: "ФИО",
-          test3: 12345,
-          test4: 12345,
-          test5: 12345,
+          test2: "Ожидается ТС",
+          test3: "Название ТС",
+          test4: "ФИО",
+          test5: "Название",
           test6: "Продукт",
         },
         {
           test1: 12345,
-          test2: "ФИО",
-          test3: 12345,
-          test4: 12345,
-          test5: 12345,
+          test2: "Ожидается ТС",
+          test3: "Название ТС",
+          test4: "ФИО",
+          test5: "Название",
           test6: "Продукт",
         },
         {
           test1: 12345,
-          test2: "ФИО",
-          test3: 12345,
-          test4: 12345,
-          test5: 12345,
+          test2: "Ожидается ТС",
+          test3: "Название ТС",
+          test4: "ФИО",
+          test5: "Название",
           test6: "Продукт",
         },
       ],

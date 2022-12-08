@@ -37,6 +37,32 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/SearchDrivers"),
   },
+  {
+    path: "/addNewCar",
+    name: "addNewCar",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/AddNewCar"),
+  },
+  {
+    path: "/carWaiting",
+    name: "carWaiting",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/CarWaiting"),
+  },
+  {
+    path: "/cisternSeal",
+    name: "cisternSeal",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/CisternSeal"),
+  },
+  {
+    path: "/searchDriversForSecurity",
+    name: "searchDriversForSecurity",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../views/SearchDriversForSecurity"
+      ),
+  },
 ];
 
 const router = createRouter({

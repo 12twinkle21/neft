@@ -3,6 +3,13 @@
     <v-row>
       <v-col cols="2"><v-btn to="/carsInfo">Данные автомобилей</v-btn></v-col>
       <v-col cols="2"><v-btn to="/searchDrivers">ФИО водителя</v-btn></v-col>
+      <v-col cols="2"><v-btn to="/carWaiting">Ожидание для авто</v-btn></v-col>
+      <v-col cols="2"><v-btn to="/cisternSeal">Пломба цистерны</v-btn></v-col>
+      <v-col cols="2"
+        ><v-btn to="/searchDriversForSecurity"
+          >Поиск для охранника</v-btn
+        ></v-col
+      >
     </v-row>
     <v-row class="mt-2">
       <v-col cols="4">
