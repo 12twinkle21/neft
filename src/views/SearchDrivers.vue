@@ -1,15 +1,40 @@
 <template>
-  <v-container>
-    <v-row class="flex-column">
-      <v-card-title class="text-center mb-5">Данные автомобиля</v-card-title>
+  <v-container class="pb-5">
+    <v-row class="flex-column mp-0">
+      <v-card-title class="mb-5">Поиск водителя</v-card-title>
       <v-form>
-        <p class="carsInfo__inputTitle">GUID контрагента (клиента)</p>
-        <v-text-field label="Введите данные" />
-        <p class="carsInfo__inputTitle">Дата начала периода запроса</p>
-        <v-text-field type="date" />
-        <p class="carsInfo__inputTitle">Дата окончания периода запроса</p>
-        <v-text-field type="date" />
-        <v-btn>Поиск</v-btn>
+        <v-row class="w-50 mp-0">
+          <v-row class="w-100">
+            <v-col>
+              <v-text-field label="GUID контрагента (клиента)" />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <p class="carsInfo__inputTitle">Дата начала периода запроса</p>
+              <Datepicker
+                id="datepicker"
+                v-model="dateBegin"
+                format="dd.MM.yyyy"
+                locale="ru"
+                autoApply
+                textInput
+              />
+            </v-col>
+            <v-col>
+              <p class="carsInfo__inputTitle">Дата окончания периода запроса</p>
+              <Datepicker
+                id="datepicker"
+                v-model="dateEnd"
+                format="dd.MM.yyyy"
+                locale="ru"
+                autoApply
+                textInput
+              />
+            </v-col>
+          </v-row>
+        </v-row>
+        <v-btn class="mt-10">Поиск</v-btn>
       </v-form>
     </v-row>
     <v-row>
@@ -38,6 +63,7 @@ import { defineComponent } from "vue";
 import Vue3EasyDataTable from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
 
+
 export default defineComponent({
   name: "HomeView",
 
@@ -48,6 +74,8 @@ export default defineComponent({
     return {
       searchValue: "",
       sortBy: "id",
+      dateBegin: new Date(),
+      dateEnd: new Date(),
       columns: [
         { text: "GUID водителя", value: "test1", sortable: true },
         {

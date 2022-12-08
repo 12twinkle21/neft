@@ -2,7 +2,7 @@ $style-border-radius: 2px;
 $style-dark-color-contrast: #ffffff;
 $style-drawer-background: #55524f;
 $style-text-color: #1f1f1f;
-$style-primary-color: #000033;
+$style-primary-color: #565F74;
 
 .v-container-main {
   padding-top: 0;
@@ -11,6 +11,7 @@ $style-primary-color: #000033;
 
 a {
   color: $style-primary-color !important;
+  text-decoration: none;
 }
 .v-btn,
 .v-card,
@@ -80,4 +81,11 @@ table {
   font-weight: 500;
   font-size: 0.9rem;
   line-height: 100%;
+}
+.mp-0{
+  margin: 0;
+  padding: 0;
+}
+.cursor-pointer{
+  cursor: pointer;
 }

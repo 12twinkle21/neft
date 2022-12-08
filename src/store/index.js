@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import auth from "@/store/modules/auth";
+import confirm from "@/store/modules/confirm";
 
 const store = createStore({
   state: {},
@@ -8,6 +9,7 @@ const store = createStore({
   actions: {},
   modules: {
     auth,
+    confirm,
   },
 });
 
