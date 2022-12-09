@@ -55,7 +55,7 @@
         </easy-grid>
       </v-col>
     </v-row>
-    <v-btn to="/addNewCar">Автомобиля в списке нет</v-btn>
+    <v-btn class="mt-5" to="/addNewCar">Автомобиля в списке нет</v-btn>
   </v-container>
 </template>
 

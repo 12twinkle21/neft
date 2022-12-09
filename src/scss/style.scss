@@ -1,12 +1,17 @@
-$style-border-radius: 2px;
+$style-border-radius: 5px;
 $style-dark-color-contrast: #ffffff;
-$style-drawer-background: #55524f;
+$style-drawer-background: #ffffff;
 $style-text-color: #1f1f1f;
 $style-primary-color: #565F74;
+
 
 .v-container-main {
   padding-top: 0;
   max-width: 1440px;
+}
+
+.v-main{
+  background-color: #D2D7DF;
 }
 
 a {
@@ -19,13 +24,29 @@ a {
 .v-checkbox {
   border-radius: $style-border-radius !important;
 }
+
+.v-btn{
+  background-color: $style-primary-color;
+  color: #fff !important;
+}
 .v-selection-control__input > .v-icon {
   color: $style-primary-color !important;
   opacity: 1 !important;
 }
-input {
+
+input, .v-text-field {
   color: black !important;
+  background-color: #fff;
 }
+
+.v-input__details{
+  display: none;
+}
+
+.v-input{
+  margin-bottom: 15px;
+}
+
 .vue3-easy-data-table__header th {
   font-weight: 500;
   font-size: 0.75rem;
@@ -72,7 +93,36 @@ table {
 }
 .v-app-bar.v-toolbar {
   background: $style-drawer-background !important;
-  color: #ffffff !important;
+  color: #000 !important;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.headerLogoAndBtn{
+  display: flex;
+  align-items: center;
+  
+}
+
+.kek{
+  background-color: #000033;
+  height: 80px;
+  width: 63px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.v-toolbar-title__placeholder{
+  height: 80px;
+}
+
+.v-toolbar__content{
+  justify-content: space-between;
 }
 
 .carsInfo__inputTitle{

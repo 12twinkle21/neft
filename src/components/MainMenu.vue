@@ -1,10 +1,17 @@
 <template>
   <v-container>
     <v-app-bar app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-app-bar-title class="cursor-pointer" @click="$router.push('/')"
-        >Приложение</v-app-bar-title
-      >
+      <div class="headerLogoAndBtn">
+        <div class="kek">
+          <v-app-bar-nav-icon
+            class="cursor-pointer"
+            @click.stop="drawer = !drawer"
+          />
+        </div>
+        <v-app-bar-title class="cursor-pointer" @click="$router.push('/')"
+          ><img src="/img/headerLogo.png" height="80" width="400" alt="logo"
+        /></v-app-bar-title>
+      </div>
       <user-info :user="loggedUser" />
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" absolute temporary>
