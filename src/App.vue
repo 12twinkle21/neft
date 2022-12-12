@@ -14,7 +14,7 @@
 
 <script>
 import LoginView from "./views/LoginView";
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import MainMenu from "@/components/MainMenu";
 
 export default {
@@ -28,6 +28,14 @@ export default {
       isLoggedIn: (state) => state.isLoggedIn,
       loggedUser: (state) => state.user,
     }),
+  },
+  methods: {
+    ...mapActions("auth", {
+      checkLogin: "checkLogin",
+    }),
+  },
+  mounted() {
+    this.checkLogin();
   },
 };
 </script>

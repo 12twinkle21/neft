@@ -12,27 +12,34 @@
               v-model="login"
             />
             <v-text-field
+              class="w-100"
               :readonly="loading"
+              :append-inner-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="show1 ? 'text' : 'password'"
               label="Пароль"
-              :rules="[required]"
-              type="password"
+              @click:appendInner="show1 = !show1"
               v-model="password"
             />
-            <v-alert type="error" v-model="hasError" class="mb-4">{{
-              error
+            <v-alert color="#FEC64E" v-if="errorAuth.length" class="mb-4">{{
+              errorAuth
             }}</v-alert>
-            <v-btn
-              color="primary"
-              :disabled="!form"
-              size="large"
-              type="submit"
-              :loading="loading"
+            <v-btn color="primary" :disabled="!form" size="large" type="submit"
               >Войти</v-btn
             >
           </v-form>
         </v-card>
       </v-col>
     </v-row>
+    <v-dialog
+      class="opacityLoginLoader"
+      v-model="loading"
+      opacity="0"
+      fullscreen
+    >
+      <v-card class="d-flex justify-center align-center">
+        <v-progress-circular :size="70" indeterminate class="primary--text" />
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -48,11 +55,13 @@ export default {
       error: "",
       hasError: false,
       timeoutHandler: null,
+      show1: false,
     };
   },
   computed: {
     ...mapState("auth", {
       isLoggedIn: (state) => state.isLoggedIn,
+      errorAuth: (state) => state.errorAuth,
     }),
   },
   methods: {
@@ -64,28 +73,18 @@ export default {
 
       this.loading = true;
       try {
-        this.doLogin({
+        const payload = {
           login: this.login,
           password: this.password,
-        });
+        };
+        this.doLogin(payload);
       } catch (e) {
-        this.showError(e);
+        this.loading = false;
+        console.error(e);
       } finally {
         this.loading = false;
         this.$router.push("/");
       }
-    },
-
-    showError(message) {
-      this.error = message;
-      this.hasError = true;
-      this.timoutHandler = setTimeout(() => {
-        this.hideError();
-      }, 6000);
-    },
-
-    hideError() {
-      (this.error = ""), (this.hasError = false);
     },
 
     ...mapActions("auth", {
@@ -99,4 +98,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.opacityLoginLoader {
+  opacity: 0.5;
+}
+</style>
