@@ -31,14 +31,14 @@
             </v-col>
           </v-row>
         </v-row>
-        <v-btn class="mt-10">Поиск</v-btn>
+        <v-btn @click="getWaitingTs" class="mt-10">Поиск</v-btn>
       </v-form>
     </v-row>
     <v-row>
       <v-col cols="12" class="mt-15">
         <easy-grid
           :headers="columns"
-          :items="items"
+          :items="waitingTs"
           alternating
           :rows-per-page="10"
           :rows-items="[10, 50, 100]"
@@ -52,6 +52,7 @@
         </easy-grid>
       </v-col>
     </v-row>
+    <div>{{ waitingTs }}</div>
   </v-container>
 </template>
 
@@ -60,8 +61,11 @@ import { defineComponent } from "vue";
 import Vue3EasyDataTable from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
 
+import axios from "axios";
+import config from "@/config";
+
 export default defineComponent({
-  name: "HomeView",
+  name: "SeatchDriversForSecurity",
 
   components: {
     "easy-grid": Vue3EasyDataTable,
@@ -73,44 +77,27 @@ export default defineComponent({
       dateBegin: new Date(),
       dateEnd: new Date(),
       columns: [
-        { text: "GUID документа", value: "test1", sortable: true },
-        {
-          text: "Статус документа",
-          value: "test2",
-          sortable: true,
-        },
-        { text: "Данные ТС", value: "test3", sortable: true },
-        { text: "ФИО водителя", value: "test4", sortable: true },
-        { text: "Наименование контрагента", value: "test5", sortable: true },
-        { text: "Наименование продукта", value: "test6", sortable: true },
+        { text: "GUID документа", value: "GUID_Load", sortable: true },
+        { text: "Данные ТС", value: "Auto", sortable: true },
+        { text: "ФИО водителя", value: "FIO", sortable: true },
+        { text: "Наименование контрагента", value: "Client", sortable: true },
+        { text: "Наименование продукта", value: "Product", sortable: true },
       ],
-      items: [
-        {
-          test1: 12345,
-          test2: "Ожидается ТС",
-          test3: "Название ТС",
-          test4: "ФИО",
-          test5: "Название",
-          test6: "Продукт",
-        },
-        {
-          test1: 12345,
-          test2: "Ожидается ТС",
-          test3: "Название ТС",
-          test4: "ФИО",
-          test5: "Название",
-          test6: "Продукт",
-        },
-        {
-          test1: 12345,
-          test2: "Ожидается ТС",
-          test3: "Название ТС",
-          test4: "ФИО",
-          test5: "Название",
-          test6: "Продукт",
-        },
-      ],
+      waitingTs: [],
     };
+  },
+  methods: {
+    getWaitingTs() {
+      const params = {
+        Request: "GetWaitingList",
+        Date_From: this.dateBegin,
+        Date_By: this.dateEnd,
+      };
+
+      axios
+        .get(config.backendUrl, { params })
+        .then((response) => (this.waitingTs = response.data.data));
+    },
   },
 });
 </script>

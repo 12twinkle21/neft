@@ -1,37 +1,61 @@
 <template>
   <v-container>
     <v-row class="flex-column">
-      <v-card-title class="mb-5">Внести данные автомобиля</v-card-title>
       <v-form>
         <v-row>
-          <v-col>
-            <v-text-field label="GUID контрагента (клиента)" />
-            <v-text-field label="GUID заказа клиента" />
-            <v-text-field label="GUID Водителя" />
-          </v-col>
-          <v-col>
-            <v-text-field label="Плановая масса, число" type="number" />
-            <v-text-field label="Госномер авто" />
-            <v-text-field label="Марка авто" />
-            <v-text-field label="Госномерприцепа" />
-            <v-text-field label="Марка прицепа" />
+          <v-col cols="5">
+            <h2 class="mb-5">Отправка сообщения менеджеру</h2>
+            <v-text-field v-model="load" label="Контрагент" />
+            <v-text-field v-model="fio" label="ФИО" />
+            <v-text-field v-model="autoNumber" label="Номер авто" />
+            <v-text-field v-model="additionalInfo" label="Доп. информация" />
+            <v-btn @click="writeDriversMessage">Отправить сообщение</v-btn>
+            <div>{{ getDriverMessageInfo }}</div>
           </v-col>
         </v-row>
-        <v-btn>Отправить данные</v-btn>
       </v-form>
     </v-row>
   </v-container>
 </template>
 
 <script>
-export default {
-  name: "carsInfo",
+import { defineComponent } from "vue";
+
+import axios from "axios";
+import config from "@/config";
+
+export default defineComponent({
+  name: "FullListClient",
+
   data() {
     return {
-      selected: new Date(),
+      getDriverMessageInfo: "",
+      load: "",
+      fio: "",
+      autoNumber: "",
+      additionalInfo: "",
     };
   },
-};
+  methods: {
+    writeDriversMessage() {
+      const bodyFormData = new FormData();
+      bodyFormData.append("Request", "WriteDrivers");
+      bodyFormData.append(
+        "Message",
+        `${this.load}, ${this.fio}, ${this.autoNumber}, ${this.additionalInfo}`
+      );
+
+      axios
+        .post(config.backendUrl, bodyFormData)
+        .then((response) => (this.getDriverMessageInfo = response.data));
+    },
+  },
+});
 </script>
 
 <style></style>
+
+<!-- methods() { writeDriversMessage(){ const bodyFormData = new FormData();
+bodyFormData.append("Request", "WriteDrivers"); bodyFormData.append("Message",
+this.driverMessage); axios .post(config.backendUrl, bodyFormData)
+.then((response) => (this.getDriverMessageInfo = response.data)); } }, -->

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="flex-column">
-      <v-card-title class="mb-5">Данные автомобиля</v-card-title>
+      <v-card-title class="mb-5">Изменение заказа</v-card-title>
       <v-form>
         <v-row>
           <v-col>
@@ -50,7 +50,7 @@
             <v-text-field label="Марка прицепа" v-model="autoName2" />
           </v-col>
         </v-row>
-        <v-btn @click="sendAutoInfo">Отправить данные</v-btn>
+        <v-btn @click="changeAutoInfo">Отправить данные</v-btn>
       </v-form>
     </v-row>
   </v-container>
@@ -61,7 +61,7 @@ import axios from "axios";
 import config from "@/config";
 
 export default {
-  name: "CarsInfo",
+  name: "ChangeOrderOnLoad",
   data() {
     return {
       shippingDate: new Date(),
@@ -78,9 +78,9 @@ export default {
     };
   },
   methods: {
-    sendAutoInfo() {
+    changeAutoInfo() {
       const bodyFormData = new FormData();
-      bodyFormData.append("Request", "WriteOrder");
+      bodyFormData.append("Request", "ChangeOrder");
       bodyFormData.append("GUID_Order", this.guidOrder);
       bodyFormData.append("GUID_Transporter", this.guidTransporter);
       bodyFormData.append("Shipping_Date", "10.11.2022");

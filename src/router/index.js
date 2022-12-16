@@ -63,6 +63,36 @@ const routes = [
         /* webpackChunkName: "about" */ "../views/SearchDriversForSecurity"
       ),
   },
+  {
+    path: "/otherElements",
+    name: "otherElements",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/OtherElements"),
+  },
+  {
+    path: "/fullListToday",
+    name: "fullListToday",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/FullListToday"),
+  },
+  {
+    path: "/fullListClient",
+    name: "fullListClient",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/FullListClient"),
+  },
+  {
+    path: "/changeOrderOnLoad",
+    name: "changeOrderOnLoad",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/ChangeOrderOnLoad"),
+  },
+  {
+    path: "/transporterList",
+    name: "transporterList",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/TransporterList"),
+  },
 ];
 
 const router = createRouter({

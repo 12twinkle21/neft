@@ -11,6 +11,25 @@
         ></v-col
       >
     </v-row>
+    <v-row>
+      <v-col cols="2"><v-btn to="/otherElements">Прочее</v-btn></v-col>
+      <v-col cols="3"
+        ><v-btn to="/fullListToday">Список документов на сегодня</v-btn></v-col
+      >
+      <v-col cols="3"
+        ><v-btn to="/fullListClient">Полный список клиентов</v-btn></v-col
+      >
+      <v-col cols="3"
+        ><v-btn to="/changeOrderOnLoad"
+          >Изменение заказа на отгрузку</v-btn
+        ></v-col
+      >
+    </v-row>
+    <v-row>
+      <v-col cols="3"
+        ><v-btn to="/transporterList">Список перевозчиков</v-btn></v-col
+      >
+    </v-row>
     <v-row class="mt-2">
       <v-col cols="4">
         <v-text-field
