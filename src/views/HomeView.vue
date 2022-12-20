@@ -1,27 +1,5 @@
 <template>
   <v-container>
-    <v-row class="mb-5">
-      <c-col cols="2"
-        ><v-btn class="mr-5" @click="showSecurityBlock = !showSecurityBlock"
-          >Охранник</v-btn
-        ></c-col
-      >
-      <c-col cols="2"
-        ><v-btn class="mr-5" @click="showOperatorBlock = !showOperatorBlock"
-          >Оператор</v-btn
-        ></c-col
-      >
-      <c-col cols="2"
-        ><v-btn class="mr-5" @click="showClientBlock = !showClientBlock"
-          >Клиент</v-btn
-        ></c-col
-      >
-      <c-col cols="2"
-        ><v-btn class="mr-5" @click="showDontKnowBlock = !showDontKnowBlock"
-          >Хз куда</v-btn
-        ></c-col
-      >
-    </v-row>
     <v-row>
       <v-col cols="2"><v-btn to="/carWaiting">Ожидание для авто</v-btn></v-col>
       <v-col cols="2"><v-btn to="/cisternSeal">Пломба цистерны</v-btn></v-col>
@@ -37,7 +15,7 @@
         </v-col>
       </v-row>
     </div>
-    <div v-if="showClientBlock">
+    <div v-if="group === 'Клиент'">
       <get-drivers />
       <get-list-transporters />
     </div>
@@ -52,9 +30,6 @@
 
 <script>
 import { defineComponent } from "vue";
-// import Vue3EasyDataTable from "vue3-easy-data-table";
-// import "vue3-easy-data-table/dist/style.css";
-
 import GetDrivers from "../components/GetDrivers.vue";
 import GetWaitingList from "../components/GetWaitingList.vue";
 import GetListTransporters from "../components/GetListTransporters.vue";
@@ -67,7 +42,6 @@ export default defineComponent({
   name: "HomeView",
 
   components: {
-    // "easy-grid": Vue3EasyDataTable,
     GetDrivers,
     GetWaitingList,
     GetListTransporters,
@@ -78,21 +52,20 @@ export default defineComponent({
   },
   data() {
     return {
-      // searchValue: "",
-      // sortBy: "id",
-      // columns: [
-      //   { text: "Название колонки 1", value: "test1", sortable: true },
-      //   { text: "Название колонки 2", value: "test2", sortable: true },
-      //   { text: "Название колонки 3", value: "test3", sortable: true },
-      //   { text: "Название колонки 4", value: "test4", sortable: true },
-      // ],
-      // items: [{ test1: 1, test2: 2 }, { test1: 2 }, { test1: 3 }],
-      // user: "",
       showSecurityBlock: false,
       showOperatorBlock: false,
       showClientBlock: false,
       showDontKnowBlock: false,
+      group: localStorage.getItem("Group"),
     };
   },
+  // methods: {
+  //   getGroup() {
+  //     this.group = localStorage.getItem("Group");
+  //   },
+  // },
+  // mounted() {
+  //   this.getGroup();
+  // },
 });
 </script>

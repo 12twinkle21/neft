@@ -2,12 +2,7 @@ import AuthService from "../../services/auth.service";
 
 const emptyUser = () => {
   return {
-    login: "guest",
     name: "Гость",
-    role: {
-      id: 0,
-      descr: "Гость",
-    },
   };
 };
 
@@ -27,7 +22,9 @@ export default {
     login(state, response) {
       if (response.AuthOn && response.GUID.length && !response.Error.length) {
         state.isLoggedIn = true;
+        state.user.name = response.Group;
         localStorage.setItem("GUID", response.GUID);
+        localStorage.setItem("Group", response.Group);
         state.GUID = response.GUID;
       } else {
         state.isLoggedIn = false;
@@ -37,18 +34,13 @@ export default {
         }, 5000);
       }
     },
-    checkLogin(state, GUID) {
-      state.isLoggedIn = !!GUID;
-    },
-    setUser(state, { login, name, role }) {
-      state.user = {
-        login,
-        name,
-        role,
-      };
+    checkLogin(state, info) {
+      state.isLoggedIn = !!info.GUID;
+      state.user.name = info.user;
     },
     logout(state) {
       localStorage.removeItem("GUID");
+      localStorage.removeItem("Group");
       state.isLoggedIn = false;
       state.user = emptyUser();
     },
@@ -57,31 +49,17 @@ export default {
     login({ commit }, { login, password }) {
       AuthService.auth(login, password).then((dataResponse) => {
         const response = dataResponse.data;
-        commit("login", response);
+        commit("login", response.data[0]);
       });
     },
     checkLogin({ commit }) {
-      const GUID = localStorage.getItem("GUID");
-      commit("checkLogin", GUID);
+      const info = {};
+      info.GUID = localStorage.getItem("GUID");
+      info.user = localStorage.getItem("Group");
+      commit("checkLogin", info);
     },
     logout({ commit }) {
       commit("logout");
-    },
-    getUser({ commit }) {
-      try {
-        const userResponse = {
-          login: "Admin",
-          name: "Александр",
-          role: {
-            id: 1,
-            descr: "Админ",
-          },
-        };
-        commit("setUser", userResponse);
-        commit("login");
-      } catch (e) {
-        commit("logout");
-      }
     },
   },
 };

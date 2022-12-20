@@ -21,33 +21,53 @@ const routes = [
   },
   {
     path: "/changePassword",
-    name: "changePassword",
+    name: "Change password",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/ChangePassword"),
   },
   {
     path: "/writeDrivers",
-    name: "writeDrivers",
+    name: "Write drivers",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/WriteDrivers"),
   },
   {
     path: "/carWaiting",
-    name: "carWaiting",
+    name: "Car Waiting",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/CarWaiting"),
   },
   {
     path: "/cisternSeal",
-    name: "cisternSeal",
+    name: "Cistern seal",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/CisternSeal"),
   },
   {
     path: "/otherElements",
-    name: "otherElements",
+    name: "Other elements",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/OtherElements"),
+  },
+  {
+    path: "/getDrivers",
+    name: "Get drivers",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../components/GetDrivers"),
+  },
+  {
+    path: "/getListTransporters",
+    name: "Get list transporters",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../components/GetListTransporters"
+      ),
+  },
+  {
+    path: "/changeOrder",
+    name: "Change order",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../components/ChangeOrder"),
   },
 ];
 

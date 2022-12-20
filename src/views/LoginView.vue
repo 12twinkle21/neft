@@ -20,7 +20,7 @@
               @click:appendInner="show1 = !show1"
               v-model="password"
             />
-            <v-alert color="#FEC64E" v-if="errorAuth.length" class="mb-4">{{
+            <v-alert color="#FEC64E" v-if="errorAuth" class="mb-4">{{
               errorAuth
             }}</v-alert>
             <v-btn color="primary" :disabled="!form" size="large" type="submit"

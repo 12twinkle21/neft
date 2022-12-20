@@ -17,23 +17,45 @@
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list-item>
         <v-list-item-content>
-          <v-card-title>{{ loggedUser.name }}</v-card-title>
-          <v-card-subtitle>{{ loggedUser.role.descr }}</v-card-subtitle>
-          <v-card-subtitle>{{ loggedUser.login }}</v-card-subtitle>
+          <v-card-title class="mt-4">{{ loggedUser.name }}</v-card-title>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
       <v-list dense>
         <template v-if="isLoggedIn">
-          <v-list-item v-for="item in menuMain" :key="item.title" link>
-            <v-list-item-content>
-              <router-link :to="item.path">
-                <v-list-item-title
-                  >{{ item.title }}
-                </v-list-item-title></router-link
-              >
-            </v-list-item-content>
-          </v-list-item>
+          <template v-if="loggedUser.name === 'Клиент'">
+            <v-list-item v-for="item in menu.client" :key="item.title" link>
+              <v-list-item-content>
+                <router-link :to="item.path">
+                  <v-list-item-title
+                    >{{ item.title }}
+                  </v-list-item-title></router-link
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+          <template v-if="loggedUser.name === 'Оператор'">
+            <v-list-item v-for="item in menu.client" :key="item.title" link>
+              <v-list-item-content>
+                <router-link :to="item.path">
+                  <v-list-item-title
+                    >{{ item.title }}
+                  </v-list-item-title></router-link
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+          <template v-if="loggedUser.name === 'Охранник'">
+            <v-list-item v-for="item in menu.client" :key="item.title" link>
+              <v-list-item-content>
+                <router-link :to="item.path">
+                  <v-list-item-title
+                    >{{ item.title }}
+                  </v-list-item-title></router-link
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </template>
           <v-list-item link>
             <v-list-item-content>
               <v-list-item-title>
@@ -83,11 +105,32 @@ export default {
   data() {
     return {
       drawer: null,
-      menuMain: [
-        { title: "Главная", path: "/" },
-        { title: "Данные автомобиля", path: "/carsInfo" },
-        { title: "ФИО водителя", path: "/searchDrivers" },
-      ],
+      menu: {
+        client: [
+          { title: "Главная", path: "/" },
+          { title: "Поиск водителя", path: "/getDrivers" },
+          {
+            title: "Получение списка перевозчиков",
+            path: "/getListTransporters",
+          },
+        ],
+        operator: [
+          { title: "Главная", path: "/" },
+          { title: "Поиск водителя", path: "/getDrivers" },
+          {
+            title: "Получение списка перевозчиков",
+            path: "/getListTransporters",
+          },
+        ],
+        securityGuard: [
+          { title: "Главная", path: "/" },
+          { title: "Поиск водителя", path: "/getDrivers" },
+          {
+            title: "Получение списка перевозчиков",
+            path: "/getListTransporters",
+          },
+        ],
+      },
       dialog: false,
     };
   },

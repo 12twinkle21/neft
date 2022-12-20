@@ -23,8 +23,8 @@
                 <Datepicker
                   id="datepicker"
                   class="w-100"
-                  v-model="shippingDate"
-                  format="dd.MM.yyyy HH:mm"
+                  v-model="shippingTime"
+                  format="HH:mm"
                   locale="ru"
                   autoApply
                   textInput
@@ -59,12 +59,14 @@
 <script>
 import axios from "axios";
 import config from "@/config";
+import { formatDate } from "@/utils/utils";
 
 export default {
   name: "ChangeOrder",
   data() {
     return {
       shippingDate: new Date(),
+      shippingTime: new Date(),
       arrivalTime: "",
       guidTransporter: "",
       guidOrder: "",
@@ -79,6 +81,7 @@ export default {
   },
   methods: {
     changeAutoInfo() {
+      console.log(formatDate(this.shippingDate), "shippingDate");
       const bodyFormData = new FormData();
       bodyFormData.append("Request", "ChangeOrder");
       bodyFormData.append("GUID_Order", this.guidOrder);
