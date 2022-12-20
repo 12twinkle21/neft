@@ -67,7 +67,7 @@ import axios from "axios";
 import config from "@/config";
 
 export default defineComponent({
-  name: "FullListClient",
+  name: "GetFullListClient",
 
   components: {
     "easy-grid": Vue3EasyDataTable,
@@ -87,6 +87,8 @@ export default defineComponent({
           sortable: true,
         },
         { text: "Масса", value: "Weight", sortable: true },
+        { text: "Авто", value: "Auto", sortable: true },
+        { text: "Время отгрузки", value: "FactLoadDate", sortable: true },
       ],
       clients: [],
     };

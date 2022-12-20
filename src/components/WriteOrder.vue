@@ -61,7 +61,7 @@ import axios from "axios";
 import config from "@/config";
 
 export default {
-  name: "CarsInfo",
+  name: "WriteOrder",
   data() {
     return {
       shippingDate: new Date(),

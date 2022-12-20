@@ -26,22 +26,10 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/ChangePassword"),
   },
   {
-    path: "/carsInfo",
-    name: "carsInfo",
+    path: "/writeDrivers",
+    name: "writeDrivers",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/CarsInfo"),
-  },
-  {
-    path: "/searchDrivers",
-    name: "searchDrivers",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/SearchDrivers"),
-  },
-  {
-    path: "/addNewCar",
-    name: "addNewCar",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AddNewCar"),
+      import(/* webpackChunkName: "about" */ "../views/WriteDrivers"),
   },
   {
     path: "/carWaiting",
@@ -56,42 +44,10 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/CisternSeal"),
   },
   {
-    path: "/searchDriversForSecurity",
-    name: "searchDriversForSecurity",
-    component: () =>
-      import(
-        /* webpackChunkName: "about" */ "../views/SearchDriversForSecurity"
-      ),
-  },
-  {
     path: "/otherElements",
     name: "otherElements",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/OtherElements"),
-  },
-  {
-    path: "/fullListToday",
-    name: "fullListToday",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/FullListToday"),
-  },
-  {
-    path: "/fullListClient",
-    name: "fullListClient",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/FullListClient"),
-  },
-  {
-    path: "/changeOrderOnLoad",
-    name: "changeOrderOnLoad",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/ChangeOrderOnLoad"),
-  },
-  {
-    path: "/transporterList",
-    name: "transporterList",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/TransporterList"),
   },
 ];
 

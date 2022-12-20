@@ -25,7 +25,7 @@ import axios from "axios";
 import config from "@/config";
 
 export default defineComponent({
-  name: "FullListClient",
+  name: "WriteDrivers",
 
   data() {
     return {
@@ -54,8 +54,3 @@ export default defineComponent({
 </script>
 
 <style></style>
-
-<!-- methods() { writeDriversMessage(){ const bodyFormData = new FormData();
-bodyFormData.append("Request", "WriteDrivers"); bodyFormData.append("Message",
-this.driverMessage); axios .post(config.backendUrl, bodyFormData)
-.then((response) => (this.getDriverMessageInfo = response.data)); } }, -->

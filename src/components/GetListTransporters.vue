@@ -1,15 +1,18 @@
 <template>
   <v-container class="pb-5">
-    <v-col cols="2">
-      <v-row class="flex-column mp-0">
-        <v-btn class="mt-5" @click="getFullListToday">Получить данные</v-btn>
-      </v-row>
-    </v-col>
+    <v-row class="flex-column mp-0">
+      <v-card-title class="mb-5">Получение списка перевозчиков</v-card-title>
+    </v-row>
     <v-row>
-      <v-col cols="12" class="mt-15">
+      <v-col cols="2">
+        <v-btn @click="getTransporterList">Получить данные</v-btn>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
         <easy-grid
           :headers="columns"
-          :items="clients"
+          :items="transporters"
           alternating
           :rows-per-page="10"
           :rows-items="[10, 50, 100]"
@@ -35,7 +38,7 @@ import axios from "axios";
 import config from "@/config";
 
 export default defineComponent({
-  name: "FullListToday",
+  name: "GetListTransporters",
 
   components: {
     "easy-grid": Vue3EasyDataTable,
@@ -44,28 +47,28 @@ export default defineComponent({
     return {
       searchValue: "",
       sortBy: "id",
+      dateBegin: new Date(),
+      dateEnd: new Date(),
       columns: [
-        { text: "GUID документа", value: "GUID_Load", sortable: true },
+        { text: "GUID", value: "GUID", sortable: true },
         {
-          text: "Статус",
-          value: "Status",
+          text: "Имя",
+          value: "Name",
           sortable: true,
         },
-        { text: "Наименование", value: "Auto_Name", sortable: true },
-        { text: "ФИО", value: "FIO", sortable: true },
       ],
-      clients: [],
+      transporters: [],
     };
   },
   methods: {
-    getFullListToday() {
+    getTransporterList() {
       const params = {
-        Request: "GetFullListToday",
+        Request: "GetListTransporters",
       };
 
       axios
         .get(config.backendUrl, { params })
-        .then((response) => (this.clients = response.data.data));
+        .then((response) => (this.transporters = response.data.data));
     },
   },
 });

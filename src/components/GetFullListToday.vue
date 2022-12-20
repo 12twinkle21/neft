@@ -1,18 +1,15 @@
 <template>
   <v-container class="pb-5">
-    <v-row class="flex-column mp-0">
-      <v-card-title class="mb-5">Получение списка перевозчиков</v-card-title>
-    </v-row>
+    <v-col cols="2">
+      <v-row class="flex-column mp-0">
+        <v-btn class="mt-5" @click="getFullListToday">Получить данные</v-btn>
+      </v-row>
+    </v-col>
     <v-row>
-      <v-col cols="2">
-        <v-btn @click="getTransporterList">Получить данные</v-btn>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
+      <v-col cols="12" class="mt-15">
         <easy-grid
           :headers="columns"
-          :items="transporters"
+          :items="clients"
           alternating
           :rows-per-page="10"
           :rows-items="[10, 50, 100]"
@@ -38,7 +35,7 @@ import axios from "axios";
 import config from "@/config";
 
 export default defineComponent({
-  name: "FullListClient",
+  name: "GetFullListToday",
 
   components: {
     "easy-grid": Vue3EasyDataTable,
@@ -47,28 +44,28 @@ export default defineComponent({
     return {
       searchValue: "",
       sortBy: "id",
-      dateBegin: new Date(),
-      dateEnd: new Date(),
       columns: [
-        { text: "GUID", value: "GUID", sortable: true },
+        { text: "GUID документа", value: "GUID_Load", sortable: true },
         {
-          text: "Имя",
-          value: "Name",
+          text: "Статус",
+          value: "Status",
           sortable: true,
         },
+        { text: "Наименование", value: "Auto_Name", sortable: true },
+        { text: "ФИО", value: "FIO", sortable: true },
       ],
-      transporters: [],
+      clients: [],
     };
   },
   methods: {
-    getTransporterList() {
+    getFullListToday() {
       const params = {
-        Request: "GetListTransporters",
+        Request: "GetFullListToday",
       };
 
       axios
         .get(config.backendUrl, { params })
-        .then((response) => (this.transporters = response.data.data));
+        .then((response) => (this.clients = response.data.data));
     },
   },
 });

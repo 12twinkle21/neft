@@ -61,7 +61,7 @@ import axios from "axios";
 import config from "@/config";
 
 export default {
-  name: "ChangeOrderOnLoad",
+  name: "ChangeOrder",
   data() {
     return {
       shippingDate: new Date(),
