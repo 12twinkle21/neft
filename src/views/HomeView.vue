@@ -16,46 +16,34 @@
       </v-row>
     </div>
     <div v-if="group === 'Клиент'">
-      <get-drivers />
-      <get-list-transporters />
+      <client-view />
     </div>
-    <div v-if="showDontKnowBlock">
-      <write-order />
-      <change-order />
-      <get-full-list-client />
-      <get-full-list-today />
+    <div v-if="group === 'Охранник'">
+      <security-view />
+    </div>
+    <div v-if="group === 'Оператор'">
+      <operator-view />
     </div>
   </v-container>
 </template>
 
 <script>
 import { defineComponent } from "vue";
-import GetDrivers from "../components/GetDrivers.vue";
-import GetWaitingList from "../components/GetWaitingList.vue";
-import GetListTransporters from "../components/GetListTransporters.vue";
-import WriteOrder from "../components/WriteOrder.vue";
-import ChangeOrder from "../components/ChangeOrder.vue";
-import GetFullListClient from "../components/GetFullListClient.vue";
-import GetFullListToday from "../components/GetFullListToday.vue";
+
+import ClientView from "./ClientView.vue";
+import OperatorView from "./OperatorView.vue";
+import SecurityView from "./SecurityView.vue";
 
 export default defineComponent({
   name: "HomeView",
 
   components: {
-    GetDrivers,
-    GetWaitingList,
-    GetListTransporters,
-    WriteOrder,
-    ChangeOrder,
-    GetFullListClient,
-    GetFullListToday,
+    ClientView,
+    SecurityView,
+    OperatorView,
   },
   data() {
     return {
-      showSecurityBlock: false,
-      showOperatorBlock: false,
-      showClientBlock: false,
-      showDontKnowBlock: false,
       group: localStorage.getItem("Group"),
     };
   },

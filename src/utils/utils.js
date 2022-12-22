@@ -4,7 +4,6 @@ export const formatDate = (date, partTime = false) => {
   const currYear = date.getFullYear();
   const currHours = date.getHours();
   const currMinutes = date.getMinutes();
-  const currSeconds = date.getSeconds();
 
   if (partTime) {
     return (
@@ -16,9 +15,7 @@ export const formatDate = (date, partTime = false) => {
       " " +
       addZeroDataNum(currHours) +
       ":" +
-      addZeroDataNum(currMinutes) +
-      ":" +
-      addZeroDataNum(currSeconds)
+      addZeroDataNum(currMinutes)
     );
   } else
     return (

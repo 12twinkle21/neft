@@ -62,6 +62,7 @@ import "vue3-easy-data-table/dist/style.css";
 
 import axios from "axios";
 import config from "@/config";
+import { formatDate } from "@/utils/utils";
 
 export default defineComponent({
   name: "GetWaitingList",
@@ -89,10 +90,8 @@ export default defineComponent({
     getWaitingTs() {
       const params = {
         Request: "GetWaitingList",
-        // Date_From: this.dateBegin,
-        // Date_By: this.dateEnd,
-        Date_From: "10.12.2022",
-        Date_By: "31.12.2022",
+        Date_From: formatDate(this.dateBegin),
+        Date_By: formatDate(this.dateEnd),
       };
 
       axios

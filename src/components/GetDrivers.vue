@@ -4,14 +4,6 @@
       <v-card-title class="mb-5">Поиск водителя</v-card-title>
       <v-form>
         <v-row class="w-50 mp-0">
-          <v-row class="w-100">
-            <v-col>
-              <v-text-field
-                label="GUID контрагента (клиента)"
-                v-model="guidTransporter"
-              />
-            </v-col>
-          </v-row>
           <v-row>
             <v-col>
               <p class="carsInfo__inputTitle">Дата начала периода запроса</p>
@@ -68,6 +60,7 @@ import "vue3-easy-data-table/dist/style.css";
 
 import axios from "axios";
 import config from "@/config";
+import { formatDate } from "@/utils/utils";
 
 export default defineComponent({
   name: "GetDrivers",
@@ -81,7 +74,6 @@ export default defineComponent({
       sortBy: "id",
       dateBegin: new Date(),
       dateEnd: new Date(),
-      guidTransporter: "",
       columns: [
         { text: "GUID водителя", value: "GUID_Driver", sortable: true },
         {
@@ -101,12 +93,9 @@ export default defineComponent({
     searchDrivers() {
       const params = {
         Request: "GetDrivers",
-        // GUID: "a03a7a09-bcf9-11ea-9789-d0509996b471",
-        GUID: this.guidTransporter,
-        // Date_From: this.dateBegin,
-        // Date_By: this.dateEnd,
-        Date_From: "10.12.2022",
-        Date_By: "31.12.2022",
+        GUID: localStorage.getItem("GUID"),
+        Date_From: formatDate(this.dateBegin),
+        Date_By: formatDate(this.dateEnd),
       };
 
       axios

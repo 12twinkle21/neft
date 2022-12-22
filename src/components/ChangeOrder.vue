@@ -31,18 +31,13 @@
                 />
               </v-col>
             </v-row>
-            <v-text-field
-              v-model="guidTransporter"
-              label="GUID контрагента (клиента)"
-            />
             <v-text-field label="GUID заказа клиента" v-model="guidOrder" />
             <v-text-field label="GUID Водителя" v-model="guidDriver" />
-          </v-col>
-          <v-col>
             <v-text-field
               label="Плановая масса, число"
               type="number"
               v-model.number="weight"
+              @change="checkWeight"
             />
             <v-text-field label="Госномер авто" v-model="autoNumber" />
             <v-text-field label="Марка авто" v-model="autoName" />
@@ -50,7 +45,7 @@
             <v-text-field label="Марка прицепа" v-model="autoName2" />
           </v-col>
         </v-row>
-        <v-btn @click="changeAutoInfo">Отправить данные</v-btn>
+        <v-btn @click="changeOrder">Отправить данные</v-btn>
       </v-form>
     </v-row>
   </v-container>
@@ -67,8 +62,6 @@ export default {
     return {
       shippingDate: new Date(),
       shippingTime: new Date(),
-      arrivalTime: "",
-      guidTransporter: "",
       guidOrder: "",
       guidDriver: "",
       weight: null,
@@ -80,23 +73,40 @@ export default {
     };
   },
   methods: {
-    changeAutoInfo() {
-      console.log(formatDate(this.shippingDate), "shippingDate");
-      const bodyFormData = new FormData();
-      bodyFormData.append("Request", "ChangeOrder");
-      bodyFormData.append("GUID_Order", this.guidOrder);
-      bodyFormData.append("GUID_Transporter", this.guidTransporter);
-      bodyFormData.append("Shipping_Date", "10.11.2022");
-      bodyFormData.append("Arrival_Time", "10.12.2022 12:00");
-      bodyFormData.append("GUID_Driver", this.guidDriver);
-      bodyFormData.append("Weight", this.weight);
-      bodyFormData.append("Auto_Number", this.autoNumber);
-      bodyFormData.append("Auto_Name", this.autoName);
-      bodyFormData.append("Auto_Number2", this.autoNumber2);
-      bodyFormData.append("Auto_Name2", this.autoName2);
-      axios
-        .post(config.backendUrl, bodyFormData)
-        .then((response) => (this.getInfo = response.data));
+    changeOrder() {
+      if (
+        this.guidOrder &&
+        this.guidDriver &&
+        this.weight &&
+        this.autoNumber &&
+        this.autoName &&
+        this.autoNumber2 &&
+        this.autoName2
+      ) {
+        const bodyFormData = new FormData();
+        bodyFormData.append("Request", "ChangeOrder");
+        bodyFormData.append("GUID_Order", this.guidOrder);
+        bodyFormData.append("GUID_Transporter", localStorage.getItem("GUID"));
+        bodyFormData.append("Shipping_Date", formatDate(this.shippingDate));
+        bodyFormData.append(
+          "Arrival_Time",
+          formatDate(this.shippingDate, this.shippingTime)
+        );
+        bodyFormData.append("GUID_Driver", this.guidDriver);
+        bodyFormData.append("Weight", this.weight);
+        bodyFormData.append("Auto_Number", this.autoNumber);
+        bodyFormData.append("Auto_Name", this.autoName);
+        bodyFormData.append("Auto_Number2", this.autoNumber2);
+        bodyFormData.append("Auto_Name2", this.autoName2);
+        axios
+          .post(config.backendUrl, bodyFormData)
+          .then((response) => (this.getInfo = response.data));
+      }
+    },
+    checkWeight() {
+      if (this.weight % 25 !== 0) {
+        this.weight = "";
+      }
     },
   },
 };
