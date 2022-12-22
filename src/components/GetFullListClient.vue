@@ -87,6 +87,7 @@ export default defineComponent({
         { text: "Время отгрузки", value: "FactLoadDate", sortable: true },
       ],
       clients: [],
+      orderInfo: [],
     };
   },
   methods: {
@@ -101,6 +102,17 @@ export default defineComponent({
       axios
         .get(config.backendUrl, { params })
         .then((response) => (this.clients = response.data.data));
+    },
+    getOrder() {
+      const params = {
+        Request: "GetOrder",
+        GUID: localStorage.getItem("GUID"),
+        GUID_Load: "447f96e1-81e9-11ed-9e14-00155d011400",
+      };
+
+      axios
+        .get(config.backendUrl, { params })
+        .then((response) => (this.orderInfo = response.data.data));
     },
   },
 });

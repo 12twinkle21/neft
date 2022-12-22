@@ -64,10 +64,16 @@ const routes = [
       ),
   },
   {
-    path: "/changeOrder",
+    path: "/getOrderView",
     name: "Change order",
     component: () =>
       import(/* webpackChunkName: "about" */ "../components/ChangeOrder"),
+  },
+  {
+    path: "/getOrder",
+    name: "get order",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/GetOrderView"),
   },
 ];
 
