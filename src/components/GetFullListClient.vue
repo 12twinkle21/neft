@@ -1,7 +1,7 @@
 <template>
   <v-container class="pb-5">
     <v-row class="flex-column mp-0">
-      <v-card-title class="mb-5">Получение списка заказов</v-card-title>
+      <v-card-title class="mb-5">Список заказов</v-card-title>
       <v-form>
         <v-row class="w-50 mp-0">
           <v-row>
@@ -49,6 +49,7 @@
         >
           <template #item-action="{ urlClientChange, urlClientOpen }">
             <v-btn
+              class="orderBtn"
               v-bind="props"
               icon="mdi-chart-line"
               variant="text"
@@ -56,6 +57,7 @@
               >Открыть</v-btn
             >
             <v-btn
+              class="orderBtn"
               v-bind="props"
               icon="mdi-chart-line"
               variant="text"

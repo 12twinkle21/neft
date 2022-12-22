@@ -138,3 +138,10 @@ table {
 .cursor-pointer{
   cursor: pointer;
 }
+
+.orderBtn{
+  font-size: 7px !important;
+  &:first-child{
+    margin-right: 5px !important;
+  }
+}

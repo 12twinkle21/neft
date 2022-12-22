@@ -1,20 +1,12 @@
 <template>
   <v-container>
-    <v-row>
+    <!-- <v-row>
       <v-col cols="2"><v-btn to="/carWaiting">Ожидание для авто</v-btn></v-col>
       <v-col cols="2"><v-btn to="/cisternSeal">Пломба цистерны</v-btn></v-col>
     </v-row>
     <v-row>
       <v-col cols="2"><v-btn to="/otherElements">Прочее</v-btn></v-col>
-    </v-row>
-    <div v-if="showSecurityBlock">
-      <get-waiting-list />
-      <v-row>
-        <v-col cols="3">
-          <v-btn to="/writeDrivers">Автомобиля в списке нет</v-btn>
-        </v-col>
-      </v-row>
-    </div>
+    </v-row> -->
     <div v-if="group === 'Клиент'">
       <client-view />
     </div>

@@ -85,7 +85,7 @@ const routes = [
     path: "/writeOrder",
     name: "Write order",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../components/WriteOrder"),
+      import(/* webpackChunkName: "about" */ "../views/WriteOrder"),
   },
   {
     path: "/otherElements",

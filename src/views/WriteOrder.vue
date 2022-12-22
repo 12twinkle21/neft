@@ -51,7 +51,6 @@
           </v-col>
         </v-row>
         <v-btn @click="sendAutoInfo">Отправить данные</v-btn>
-        <v-btn @click="test">Отправить данные</v-btn>
       </v-form>
     </v-row>
   </v-container>
