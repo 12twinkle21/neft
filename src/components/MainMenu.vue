@@ -35,7 +35,7 @@
             </v-list-item>
           </template>
           <template v-if="loggedUser.name === 'Оператор'">
-            <v-list-item v-for="item in menu.client" :key="item.title" link>
+            <v-list-item v-for="item in menu.operator" :key="item.title" link>
               <v-list-item-content>
                 <router-link :to="item.path">
                   <v-list-item-title
@@ -46,7 +46,11 @@
             </v-list-item>
           </template>
           <template v-if="loggedUser.name === 'Охранник'">
-            <v-list-item v-for="item in menu.client" :key="item.title" link>
+            <v-list-item
+              v-for="item in menu.securityGuard"
+              :key="item.title"
+              link
+            >
               <v-list-item-content>
                 <router-link :to="item.path">
                   <v-list-item-title
@@ -113,13 +117,25 @@ export default {
             title: "Получение списка перевозчиков",
             path: "/getListTransporters",
           },
+          {
+            title: "Получение списка заказов",
+            path: "/getFullListClient",
+          },
+          {
+            title: "Изменение заказа",
+            path: "/changeOrder",
+          },
+          {
+            title: "Новый заказ",
+            path: "/writeOrder",
+          },
         ],
         operator: [
           { title: "Главная", path: "/" },
           { title: "Поиск водителя", path: "/getDrivers" },
           {
             title: "Получение списка перевозчиков",
-            path: "/getListTransporters",
+            path: "/getFullListClient",
           },
         ],
         securityGuard: [

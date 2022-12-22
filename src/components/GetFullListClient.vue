@@ -1,7 +1,7 @@
 <template>
   <v-container class="pb-5">
     <v-row class="flex-column mp-0">
-      <v-card-title class="mb-5">Получение списка клиентов</v-card-title>
+      <v-card-title class="mb-5">Получение списка заказов</v-card-title>
       <v-form>
         <v-row class="w-50 mp-0">
           <v-row>
@@ -36,7 +36,7 @@
       <v-col cols="12" class="mt-15">
         <easy-grid
           :headers="columns"
-          :items="clients"
+          :items="clientsList"
           alternating
           :rows-per-page="10"
           :rows-items="[10, 50, 100]"
@@ -47,10 +47,25 @@
           buttons-pagination
           theme-color="#969EAD"
         >
+          <template #item-action="{ urlClientChange, urlClientOpen }">
+            <v-btn
+              v-bind="props"
+              icon="mdi-chart-line"
+              variant="text"
+              :to="urlClientOpen"
+              >Открыть</v-btn
+            >
+            <v-btn
+              v-bind="props"
+              icon="mdi-chart-line"
+              variant="text"
+              :to="urlClientChange"
+              >Изменить</v-btn
+            >
+          </template>
         </easy-grid>
       </v-col>
     </v-row>
-    <div>{{ clients }}</div>
   </v-container>
 </template>
 
@@ -58,7 +73,6 @@
 import { defineComponent } from "vue";
 import Vue3EasyDataTable from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
-
 import axios from "axios";
 import config from "@/config";
 import { formatDate } from "@/utils/utils";
@@ -85,6 +99,7 @@ export default defineComponent({
         { text: "Масса", value: "Weight", sortable: true },
         { text: "Авто", value: "Auto", sortable: true },
         { text: "Время отгрузки", value: "FactLoadDate", sortable: true },
+        { text: "Действие", value: "action", sortable: false },
       ],
       clients: [],
       orderInfo: [],
@@ -113,6 +128,18 @@ export default defineComponent({
       axios
         .get(config.backendUrl, { params })
         .then((response) => (this.orderInfo = response.data.data));
+    },
+  },
+  computed: {
+    clientsList() {
+      return this.clients.map((item) => {
+        console.log(item);
+        return {
+          ...item,
+          urlClientChange: `/changeOrder/${item.GUID_load}`,
+          urlClientOpen: `/getOrder/${item.GUID_load}`,
+        };
+      });
     },
   },
 });

@@ -18,10 +18,10 @@
     <div v-if="group === 'Клиент'">
       <client-view />
     </div>
-    <div v-if="group === 'Охранник'">
+    <div v-if="group === 'Охрана'">
       <security-view />
     </div>
-    <div v-if="group === 'Оператор'">
+    <div v-if="group === 'Оператор отгрузки'">
       <operator-view />
     </div>
   </v-container>

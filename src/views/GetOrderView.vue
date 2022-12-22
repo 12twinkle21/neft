@@ -11,7 +11,7 @@
         <p>Пломба: kek123</p>
         <p>Номер пломбы пробы: lol123</p>
         <p>Номер ТТН: лолкек321</p>
-        <v-btn to="/changeOrder">Изменить заказ</v-btn>
+        <v-btn :to="linkToChange">Изменить заказ</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -19,14 +19,38 @@
 
 <script>
 import { defineComponent } from "vue";
+import axios from "axios";
+import config from "@/config";
 
 export default defineComponent({
   name: "GetOrderView",
 
   data() {
-    return {};
+    return {
+      guidLoad: this.$route.params.id,
+      orderInfo: {},
+    };
   },
-  methods: {},
+  mounted() {
+    this.getOrder();
+  },
+  computed: {
+    linkToChange() {
+      return `/changeOrder/${this.guidLoad}`;
+    },
+  },
+  methods: {
+    getOrder() {
+      const params = {
+        Request: "GetOrder",
+        GUID: this.guidLoad,
+      };
+
+      axios
+        .get(config.backendUrl, { params })
+        .then((response) => (this.orderInfo = response.data.data));
+    },
+  },
 });
 </script>
 

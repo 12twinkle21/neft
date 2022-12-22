@@ -64,16 +64,34 @@ const routes = [
       ),
   },
   {
-    path: "/getOrderView",
+    path: "/changeOrder/:id",
     name: "Change order",
     component: () =>
       import(/* webpackChunkName: "about" */ "../components/ChangeOrder"),
   },
   {
-    path: "/getOrder",
-    name: "get order",
+    path: "/getOrder/:id",
+    name: "Get order",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/GetOrderView"),
+  },
+  {
+    path: "/getFullListClient",
+    name: "Full list client",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../components/GetFullListClient"),
+  },
+  {
+    path: "/writeOrder",
+    name: "Write order",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../components/WriteOrder"),
+  },
+  {
+    path: "/otherElements",
+    name: "otherElements",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/OtherElements"),
   },
 ];
 
