@@ -110,26 +110,7 @@ export default {
     return {
       drawer: null,
       menu: {
-        client: [
-          { title: "Главная", path: "/" },
-          { title: "Поиск водителя", path: "/getDrivers" },
-          {
-            title: "Получение списка перевозчиков",
-            path: "/getListTransporters",
-          },
-          {
-            title: "Получение списка заказов",
-            path: "/getFullListClient",
-          },
-          {
-            title: "Изменение заказа",
-            path: "/changeOrder",
-          },
-          {
-            title: "Новый заказ",
-            path: "/writeOrder",
-          },
-        ],
+        client: [{ title: "Главная", path: "/" }],
         operator: [
           { title: "Главная", path: "/" },
           { title: "Поиск водителя", path: "/getDrivers" },
