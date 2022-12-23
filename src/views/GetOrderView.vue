@@ -1,16 +1,21 @@
 <template>
   <v-container class="pb-5">
     <v-row>
-      <v-col v-for="(item, index) in orderInfo" :key="index">
-        <p>Авто: {{ item.Auto }}</p>
-        <p>ФИО: {{ item.FIO }}</p>
-        <p>Клиент : {{ item.Client }}</p>
-        <p>Продукт: {{ item.Product }}</p>
-        <p>Масса: {{ item.Weight }}</p>
-        <p>Факстическое время отгрузки: {{ item.FactLoadDate }}</p>
-        <p>Пломба: {{ item.Seal }}</p>
-        <p>Номер пломбы пробы: {{ item.SampleSeal }}</p>
-        <p>Номер ТТН: {{ item.NomberTTN }}</p>
+      <v-col>
+        <v-list v-for="(item, index) in orderInfo" :key="index">
+          <v-list-item>Авто: {{ item.Auto.split("/")[0] }}</v-list-item>
+          <v-list-item>Прицеп: {{ item.Auto.split("/")[1] }}</v-list-item>
+          <v-list-item>ФИО: {{ item.FIO }}</v-list-item>
+          <v-list-item>Клиент : {{ item.Client }}</v-list-item>
+          <v-list-item>Продукт: {{ item.Product }}</v-list-item>
+          <v-list-item>Масса: {{ item.Weight }}</v-list-item>
+          <v-list-item
+            >Факстическое время отгрузки: {{ item.FactLoadDate }}</v-list-item
+          >
+          <v-list-item>Пломба: {{ item.Seal }}</v-list-item>
+          <v-list-item>Номер пломбы пробы: {{ item.SampleSeal }}</v-list-item>
+          <v-list-item>Номер ТТН: {{ item.NomberTTN }}</v-list-item>
+        </v-list>
         <v-btn class="mt-10" :to="linkToChange">Изменить заказ</v-btn>
       </v-col>
     </v-row>

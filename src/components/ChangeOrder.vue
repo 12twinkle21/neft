@@ -48,6 +48,9 @@
         <v-btn @click="changeOrder">Отправить данные</v-btn>
       </v-form>
     </v-row>
+    <p class="mt-10" v-if="orderInfo">
+      {{ orderInfo[0].Auto.split("/")[1].split(" ")[1] }}
+    </p>
   </v-container>
 </template>
 
@@ -70,6 +73,8 @@ export default {
       autoNumber2: "",
       autoName2: "",
       getInfo: "",
+      orderInfo: "",
+      guidLoad: this.$route.params.id,
     };
   },
   methods: {
@@ -108,6 +113,34 @@ export default {
         this.weight = "";
       }
     },
+    getOrder() {
+      const params = {
+        Request: "GetOrder",
+        GUID: this.guidLoad,
+      };
+
+      axios
+        .get(config.backendUrl, { params })
+        .then(
+          (response) => (
+            (this.orderInfo = response.data.data),
+            (this.autoNumber =
+              response.data.data[0].Auto.split("/")[0].split(" ")[1]),
+            (this.autoName =
+              response.data.data[0].Auto.split("/")[0].split(" ")[0]),
+            (this.weight = Math.round(response.data.data[0].Weight))(
+              (this.autoNumber2 =
+                response.data.data[0].Auto.split("/")[1].split(" ")[2])
+            ),
+            (this.autoName2 =
+              response.data.data[0].Auto.split("/")[1].split(" ")[1]),
+            (this.weight = Math.round(response.data.data[0].Weight))
+          )
+        );
+    },
+  },
+  mounted() {
+    this.getOrder();
   },
 };
 </script>
