@@ -48,9 +48,6 @@
         <v-btn @click="changeOrder">Отправить данные</v-btn>
       </v-form>
     </v-row>
-    <p class="mt-10" v-if="orderInfo">
-      {{ orderInfo[0].Auto.split("/")[1].split(" ")[1] }}
-    </p>
   </v-container>
 </template>
 
@@ -128,10 +125,9 @@ export default {
               response.data.data[0].Auto.split("/")[0].split(" ")[1]),
             (this.autoName =
               response.data.data[0].Auto.split("/")[0].split(" ")[0]),
-            (this.weight = Math.round(response.data.data[0].Weight))(
-              (this.autoNumber2 =
-                response.data.data[0].Auto.split("/")[1].split(" ")[2])
-            ),
+            (this.weight = Math.round(response.data.data[0].Weight)),
+            (this.autoNumber2 =
+              response.data.data[0].Auto.split("/")[1].split(" ")[2]),
             (this.autoName2 =
               response.data.data[0].Auto.split("/")[1].split(" ")[1]),
             (this.weight = Math.round(response.data.data[0].Weight))

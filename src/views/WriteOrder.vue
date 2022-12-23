@@ -31,13 +31,21 @@
                 />
               </v-col>
             </v-row>
+            <v-autocomplete
+              class="mt-4"
+              filter
+              :menu-props="{ maxHeight: 500 }"
+              label="Список водителей"
+              :items="changeDriverList"
+              v-model="selectedDriverFio"
+            />
             <v-text-field label="GUID заказа клиента" v-model="guidOrder" />
             <v-text-field label="GUID Водителя" v-model="guidDriver" />
             <v-autocomplete
               filter
               label="Список перевозчиков"
               :items="changeTransporterList"
-              v-model="selectedUser"
+              v-model="selectedTransporter"
             />
             <v-text-field
               label="Плановая масса, число"
@@ -45,15 +53,18 @@
               v-model.number="weight"
               @change="checkWeight"
             />
+            <v-alert color="#FEC64E" v-if="errorW" class="mb-4">{{
+              errorW
+            }}</v-alert>
             <v-text-field label="Госномер авто" v-model="autoNumber" />
             <v-text-field label="Марка авто" v-model="autoName" />
             <v-text-field label="Госномерприцепа" v-model="autoNumber2" />
             <v-text-field label="Марка прицепа" v-model="autoName2" />
           </v-col>
         </v-row>
+        <v-alert color="#FEC64E" v-if="error" class="mb-4">{{ error }}</v-alert>
         <v-btn @click="sendAutoInfo">Отправить данные</v-btn>
       </v-form>
-      {{ changeDriverList }}
     </v-row>
   </v-container>
 </template>
@@ -80,15 +91,29 @@ export default {
       getInfo: "",
       driversList: "",
       transporterList: {},
-      selectedUser: "",
+      selectedTransporter: "",
+      selectedDriverFio: "",
+      error: "",
+      errorW: "",
     };
   },
   mounted() {
-    // this.listDrivers();
     this.getTransporterList();
     this.searchDrivers();
   },
   computed: {
+    checkError() {
+      return (
+        !!this.selectedDriverFio &&
+        !!this.guidOrder &&
+        !!this.guidDriver &&
+        !!this.weight &&
+        !!this.autoNumber &&
+        !!this.autoName &&
+        !!this.autoNumber2 &&
+        !!this.autoName2
+      );
+    },
     changeTransporterList() {
       let changeTL = [];
       for (const key in this.transporterList) {
@@ -104,7 +129,46 @@ export default {
       return changeTL;
     },
   },
+  watch: {
+    selectedDriverFio() {
+      this.getGuidOrder();
+      this.getGuidDriver();
+    },
+    selectedTransporter() {
+      this.searchTransporterGuid();
+    },
+  },
   methods: {
+    searchTransporterGuid() {
+      for (const key in this.transporterList) {
+        if (
+          this.transporterList[key].Name.toLowerCase() ===
+          this.selectedTransporter.toLowerCase()
+        ) {
+          this.guidTransporter = this.transporterList[key].GUID;
+        }
+      }
+    },
+    getGuidOrder() {
+      for (const key in this.driversList) {
+        if (
+          this.driversList[key].FIO.toLowerCase() ===
+          this.selectedDriverFio.toLowerCase()
+        ) {
+          this.guidOrder = this.driversList[key].GUID_Order;
+        }
+      }
+    },
+    getGuidDriver() {
+      for (const key in this.driversList) {
+        if (
+          this.driversList[key].FIO.toLowerCase() ===
+          this.selectedDriverFio.toLowerCase()
+        ) {
+          this.guidDriver = this.driversList[key].GUID_Driver;
+        }
+      }
+    },
     searchDrivers() {
       const params = {
         Request: "GetDrivers",
@@ -128,15 +192,8 @@ export default {
         .then((response) => (this.transporterList = response.data.data));
     },
     sendAutoInfo() {
-      if (
-        this.guidOrder &&
-        this.guidDriver &&
-        this.weight &&
-        this.autoNumber &&
-        this.autoName &&
-        this.autoNumber2 &&
-        this.autoName2
-      ) {
+      if (this.checkError) {
+        this.error = "";
         const bodyFormData = new FormData();
         bodyFormData.append("Request", "WriteOrder");
         bodyFormData.append("GUID_Order", this.guidOrder);
@@ -144,7 +201,7 @@ export default {
         bodyFormData.append("Shipping_Date", formatDate(this.shippingDate));
         bodyFormData.append(
           "Arrival_Time",
-          formatDate(this.shippingDate, this.shippingTime)
+          formatDate(this.shippingTime, true)
         );
         bodyFormData.append("GUID_Driver", this.guidDriver);
         bodyFormData.append("Weight", this.weight);
@@ -152,15 +209,24 @@ export default {
         bodyFormData.append("Auto_Name", this.autoName);
         bodyFormData.append("Auto_Number2", this.autoNumber2);
         bodyFormData.append("Auto_Name2", this.autoName2);
-        axios
-          .post(config.backendUrl, bodyFormData)
-          .then((response) => (this.getInfo = response.data));
+
+        axios.post(config.backendUrl, bodyFormData).then((response) => {
+          if (response.data.data[0].Error) {
+            this.error = response.data.data[0].Error;
+          } else {
+            this.getInfo = response.data;
+            this.error = "";
+          }
+        });
+      } else {
+        this.error = "Все поля должны быть заполнены";
       }
     },
     checkWeight() {
       if (this.weight % 25 !== 0) {
         this.weight = "";
-      }
+        this.errorW = "Масса должны быть кратна 25";
+      } else this.errorW = "";
     },
   },
 };
