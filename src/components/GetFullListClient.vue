@@ -32,8 +32,11 @@
         <v-btn @click="getFullListClient" class="mt-10">Поиск</v-btn>
       </v-form>
     </v-row>
+    <v-alert color="#FEC64E" v-if="errorReq" class="mb-4">{{
+      errorReq
+    }}</v-alert>
     <v-row>
-      <v-col cols="12" class="mt-15">
+      <v-col cols="12" class="mt-1">
         <easy-grid
           :headers="columns"
           :items="clientsList"
@@ -44,6 +47,7 @@
           empty-message="Записей не найдено"
           rows-per-page-message="показывать по"
           :sort-by="sortBy"
+          :loading="loading"
           buttons-pagination
           theme-color="#969EAD"
         >
@@ -105,20 +109,28 @@ export default defineComponent({
       ],
       clients: [],
       orderInfo: [],
+      errorReq: "",
+      loading: false,
     };
   },
   methods: {
     getFullListClient() {
-      const params = {
-        Request: "GetFullListClient",
-        GUID: localStorage.getItem("GUID"),
-        Date_From: formatDate(this.dateBegin),
-        Date_By: formatDate(this.dateEnd),
-      };
+      if (!this.dateBegin || !this.dateEnd) {
+        this.errorReq = "Введите дату для запроса";
+      } else {
+        this.loading = true;
+        const params = {
+          Request: "GetFullListClient",
+          GUID: localStorage.getItem("GUID"),
+          Date_From: formatDate(this.dateBegin),
+          Date_By: formatDate(this.dateEnd),
+        };
 
-      axios
-        .get(config.backendUrl, { params })
-        .then((response) => (this.clients = response.data.data));
+        axios.get(config.backendUrl, { params }).then((response) => {
+          this.clients = response.data.data;
+          this.loading = false;
+        });
+      }
     },
     getOrder() {
       const params = {
@@ -135,12 +147,17 @@ export default defineComponent({
   computed: {
     clientsList() {
       return this.clients.map((item) => {
-        console.log(item);
-        return {
-          ...item,
-          urlClientChange: `/changeOrder/${item.GUID_load}`,
-          urlClientOpen: `/getOrder/${item.GUID_load}`,
-        };
+        if (item.Error.length > 0) {
+          this.errorReq = item.Error;
+          return "";
+        } else {
+          this.errorReq = "";
+          return {
+            ...item,
+            urlClientChange: `/changeOrder/${item.GUID_load}`,
+            urlClientOpen: `/getOrder/${item.GUID_load}`,
+          };
+        }
       });
     },
   },

@@ -140,7 +140,8 @@ table {
 }
 
 .orderBtn{
-  font-size: 7px !important;
+  font-size: 10px !important;
+  width: calc(50% - 5px) !important;
   &:first-child{
     margin-right: 5px !important;
   }

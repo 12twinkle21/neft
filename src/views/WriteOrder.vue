@@ -33,7 +33,8 @@
             </v-row>
             <v-text-field label="GUID заказа клиента" v-model="guidOrder" />
             <v-text-field label="GUID Водителя" v-model="guidDriver" />
-            <v-select
+            <v-autocomplete
+              filter
               label="Список перевозчиков"
               :items="changeTransporterList"
               v-model="selectedUser"
@@ -52,6 +53,7 @@
         </v-row>
         <v-btn @click="sendAutoInfo">Отправить данные</v-btn>
       </v-form>
+      {{ changeDriverList }}
     </v-row>
   </v-container>
 </template>
@@ -84,6 +86,7 @@ export default {
   mounted() {
     // this.listDrivers();
     this.getTransporterList();
+    this.searchDrivers();
   },
   computed: {
     changeTransporterList() {
@@ -93,20 +96,28 @@ export default {
       }
       return changeTL;
     },
+    changeDriverList() {
+      let changeTL = [];
+      for (const key in this.driversList) {
+        changeTL.push(this.driversList[key].FIO);
+      }
+      return changeTL;
+    },
   },
   methods: {
-    // listDrivers() {
-    //   const params = {
-    //     Request: "GetDrivers",
-    //     GUID: localStorage.getItem("GUID"),
-    //     Date_From: formatDate(this.dateBegin),
-    //     Date_By: formatDate(this.dateEnd),
-    //   };
-    //
-    //   axios
-    //     .get(config.backendUrl, { params })
-    //     .then((response) => (this.driversList = response.data.data));
-    // },
+    searchDrivers() {
+      const params = {
+        Request: "GetDrivers",
+        GUID: localStorage.getItem("GUID"),
+        Date_From: formatDate(this.shippingDate),
+        Date_By: formatDate(this.shippingDate),
+      };
+
+      axios
+        .get(config.backendUrl, { params })
+        .then((response) => (this.driversList = response.data.data));
+    },
+
     getTransporterList() {
       const params = {
         Request: "GetListTransporters",
