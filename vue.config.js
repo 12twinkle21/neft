@@ -2,9 +2,9 @@ const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
 
-  devServer: {
-    proxy: "http://office.diall.ru:19082"
-  },
+  // devServer: {
+  //   proxy: "http://office.diall.ru:19082"
+  // },
 
   pluginOptions: {
     vuetify: {
