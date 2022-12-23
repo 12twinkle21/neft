@@ -10,7 +10,6 @@
             <v-text-field v-model="autoNumber" label="Номер авто" />
             <v-text-field v-model="additionalInfo" label="Доп. информация" />
             <v-btn @click="writeDriversMessage">Отправить сообщение</v-btn>
-            <div>{{ getDriverMessageInfo }}</div>
           </v-col>
         </v-row>
       </v-form>
