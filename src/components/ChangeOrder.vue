@@ -32,7 +32,6 @@
               </v-col>
             </v-row>
             <v-text-field label="GUID заказа клиента" v-model="guidOrder" />
-            <v-text-field label="GUID Водителя" v-model="guidDriver" />
             <v-text-field
               label="Плановая масса, число"
               type="number"

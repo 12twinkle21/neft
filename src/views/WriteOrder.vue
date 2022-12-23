@@ -39,8 +39,6 @@
               :items="changeDriverList"
               v-model="selectedDriverFio"
             />
-            <v-text-field label="GUID заказа клиента" v-model="guidOrder" />
-            <v-text-field label="GUID Водителя" v-model="guidDriver" />
             <v-autocomplete
               filter
               label="Список перевозчиков"
