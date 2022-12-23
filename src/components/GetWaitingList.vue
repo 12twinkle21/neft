@@ -1,9 +1,7 @@
 <template>
   <v-container class="pb-5">
     <v-row class="flex-column mp-0">
-      <v-card-title class="mb-5"
-        >Водители, прибывающие на загрузку</v-card-title
-      >
+      <v-card-title class="mb-5">Список ожидаемых ТС</v-card-title>
       <v-form>
         <v-row class="w-50 mp-0">
           <v-row>
@@ -49,6 +47,16 @@
           buttons-pagination
           theme-color="#969EAD"
         >
+          <template #item-action="{ urlCarOpen }">
+            <v-btn
+              class="orderBtn"
+              v-bind="props"
+              icon="mdi-chart-line"
+              variant="text"
+              :to="urlCarOpen"
+              >Открыть</v-btn
+            >
+          </template>
         </easy-grid>
       </v-col>
     </v-row>
@@ -82,8 +90,11 @@ export default defineComponent({
         { text: "ФИО водителя", value: "FIO", sortable: true },
         { text: "Наименование контрагента", value: "Client", sortable: true },
         { text: "Наименование продукта", value: "Product", sortable: true },
+        { text: "Действие", value: "action", sortable: false },
       ],
+      errorReq: "",
       waitingTs: [],
+      carWatingPath: "",
     };
   },
   methods: {
@@ -97,6 +108,22 @@ export default defineComponent({
       axios
         .get(config.backendUrl, { params })
         .then((response) => (this.waitingTs = response.data.data));
+    },
+  },
+  computed: {
+    waitingTsList() {
+      return this.waitingTs.map((item) => {
+        if (item.Error.length > 0) {
+          this.errorReq = item.Error;
+          return "";
+        } else {
+          this.errorReq = "";
+          return {
+            ...item,
+            urlCarOpen: `/changeCarStatus/${item.GUID_load}`,
+          };
+        }
+      });
     },
   },
 });

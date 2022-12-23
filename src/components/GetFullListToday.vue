@@ -2,6 +2,7 @@
   <v-container class="pb-5">
     <v-col cols="2">
       <v-row class="flex-column mp-0">
+        <h3>Справочник</h3>
         <v-btn class="mt-5" @click="getFullListToday">Получить данные</v-btn>
       </v-row>
     </v-col>

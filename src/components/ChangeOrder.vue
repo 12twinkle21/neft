@@ -134,7 +134,8 @@ export default {
         }
       }
       if (!count) {
-        this.errorGuidDrider = "Guid не найден в системе, введите данные";
+        // this.errorGuidDrider = "Guid не найден в системе, введите данные";
+        console.log("kek");
       }
     },
     searchDrivers() {
@@ -151,7 +152,6 @@ export default {
     },
     changeOrder() {
       if (this.checkError) {
-        console.log("dkfjdkjf");
         this.errorGuidDrider = "";
         this.error = "";
         const bodyFormData = new FormData();
@@ -217,8 +217,7 @@ export default {
               response.data.data[0].Auto.split("/")[1].split(" ")[2]),
             (this.autoName2 =
               response.data.data[0].Auto.split("/")[1].split(" ")[1]),
-            (this.weight = Math.round(response.data.data[0].Weight)),
-            (this.selectedDriverFio = response.data.data[0].FIO)
+            (this.weight = Math.round(response.data.data[0].Weight))
           )
         );
     },

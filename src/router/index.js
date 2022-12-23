@@ -89,9 +89,17 @@ const routes = [
   },
   {
     path: "/otherElements",
-    name: "otherElements",
+    name: "OtherElements",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/OtherElements"),
+  },
+  {
+    path: "/changeCarStatus/:id",
+    name: "Change order",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../views/ChangeCarStatusForSecurity"
+      ),
   },
 ];
 
