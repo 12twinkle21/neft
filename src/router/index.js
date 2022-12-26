@@ -95,7 +95,7 @@ const routes = [
   },
   {
     path: "/changeCarStatus/:id",
-    name: "Change order",
+    name: "Change car status",
     component: () =>
       import(
         /* webpackChunkName: "about" */ "../views/ChangeCarStatusForSecurity"

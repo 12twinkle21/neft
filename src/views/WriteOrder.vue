@@ -208,6 +208,47 @@ export default {
         bodyFormData.append("Auto_Number2", this.autoNumber2);
         bodyFormData.append("Auto_Name2", this.autoName2);
 
+        console.log("GUID_Order", this.guidOrder, "---", typeof this.guidOrder);
+        console.log(
+          "GUID_Transporter",
+          this.guidTransporter,
+          "---",
+          typeof this.guidTransporter
+        );
+        console.log(
+          "Shipping_Date",
+          formatDate(this.shippingDate),
+          "---",
+          typeof formatDate(this.shippingDate)
+        );
+        console.log(
+          "Arrival_Time",
+          formatDate(this.shippingTime, true),
+          "---",
+          typeof formatDate(this.shippingTime, true)
+        );
+        console.log(
+          "GUID_Driver",
+          this.guidDriver,
+          "---",
+          typeof this.guidDriver
+        );
+        console.log("Weight", this.weight, "---", typeof this.weight);
+        console.log(
+          "Auto_Number",
+          this.autoNumber,
+          "---",
+          typeof this.autoNumber
+        );
+        console.log("Auto_Name", this.autoName, "---", typeof this.autoName);
+        console.log(
+          "Auto_Number2",
+          this.autoNumber2,
+          "---",
+          typeof this.autoNumber2
+        );
+        console.log("Auto_Name2", this.autoName2, "---", typeof this.autoName2);
+
         axios.post(config.backendUrl, bodyFormData).then((response) => {
           if (response.data.data[0].Error) {
             this.error = response.data.data[0].Error;

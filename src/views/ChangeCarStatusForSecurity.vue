@@ -1,6 +1,24 @@
 <template>
   <v-container>
     <v-row>
+      <v-col>
+        <v-list v-for="(item, index) in orderInfo" :key="index">
+          <v-list-item>Авто: {{ item.Auto.split("/")[0] }}</v-list-item>
+          <v-list-item>Прицеп: {{ item.Auto.split("/")[1] }}</v-list-item>
+          <v-list-item>ФИО: {{ item.FIO }}</v-list-item>
+          <v-list-item>Клиент : {{ item.Client }}</v-list-item>
+          <v-list-item>Продукт: {{ item.Product }}</v-list-item>
+          <v-list-item>Масса: {{ item.Weight }}</v-list-item>
+          <v-list-item
+            >Статус:
+            {{
+              getStatusInfo.map((statusItem) => statusItem.Status)
+            }}</v-list-item
+          >
+        </v-list>
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col cols="5">
         <h2 class="mb-5">Тут меняем статус тачки</h2>
         <v-btn @click="changeTsArrival">ТС прибыло</v-btn>
@@ -43,7 +61,7 @@ import axios from "axios";
 import config from "@/config";
 
 export default defineComponent({
-  name: "OtherElements",
+  name: "ChangeCarStatusForSecurity",
 
   data() {
     return {
@@ -52,7 +70,12 @@ export default defineComponent({
       getInspectionInfo: "",
       getStatusInfo: "",
       guidLoad: this.$route.params.id,
+      orderInfo: {},
     };
+  },
+  mounted() {
+    this.getOrder();
+    // this.getStatus();
   },
   methods: {
     changeTsArrival() {
@@ -101,6 +124,16 @@ export default defineComponent({
       axios
         .get(config.backendUrl, { params })
         .then((response) => (this.getStatusInfo = response.data.data));
+    },
+    getOrder() {
+      const params = {
+        Request: "GetOrder",
+        GUID: this.guidLoad,
+      };
+
+      axios
+        .get(config.backendUrl, { params })
+        .then((response) => (this.orderInfo = response.data.data));
     },
   },
 });
