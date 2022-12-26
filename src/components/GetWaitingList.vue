@@ -36,7 +36,7 @@
       <v-col cols="12" class="mt-15">
         <easy-grid
           :headers="columns"
-          :items="waitingTs"
+          :items="waitingTsList"
           alternating
           :rows-per-page="10"
           :rows-items="[10, 50, 100]"
@@ -120,7 +120,7 @@ export default defineComponent({
           this.errorReq = "";
           return {
             ...item,
-            urlCarOpen: `/changeCarStatus/${item.GUID_load}`,
+            urlCarOpen: `/changeCarStatus/${item.GUID_Load}`,
           };
         }
       });

@@ -3,7 +3,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
 
   devServer: {
-    proxy: "http://office.diall.ru:19082"
+    proxy: "https://traveltest.diall.ru"
   },
 
   pluginOptions: {
