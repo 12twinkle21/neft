@@ -20,6 +20,7 @@
           :sort-by="sortBy"
           buttons-pagination
           theme-color="#969EAD"
+          :loading="loading"
         >
         </easy-grid>
       </v-col>
@@ -56,17 +57,20 @@ export default defineComponent({
         { text: "ФИО", value: "FIO", sortable: true },
       ],
       clients: [],
+      loading: false,
     };
   },
   methods: {
     getFullListToday() {
+      this.loading = true;
       const params = {
         Request: "GetFullListToday",
       };
 
-      axios
-        .get(config.backendUrl, { params })
-        .then((response) => (this.clients = response.data.data));
+      axios.get(config.backendUrl, { params }).then((response) => {
+        this.loading = false;
+        this.clients = response.data.data;
+      });
     },
   },
 });
