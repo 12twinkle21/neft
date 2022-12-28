@@ -2,7 +2,7 @@
   <v-container>
     <v-app-bar app>
       <div class="headerLogoAndBtn">
-        <div class="kek">
+        <div class="headerBtn">
           <v-app-bar-nav-icon
             class="cursor-pointer"
             @click.stop="drawer = !drawer"
@@ -137,7 +137,6 @@ export default {
   },
   methods: {
     consfirmedLogout() {
-      console.log("dkfjdkjf");
       if (this.showConfirm("Вы действительно хотите выйти?")) this.logout();
     },
     closeDial(e) {

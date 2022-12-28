@@ -104,7 +104,6 @@ export default defineComponent({
       dateBegin: new Date(),
       dateEnd: new Date(),
       columns: [
-        { text: "GUID документа", value: "GUID_load", sortable: true },
         {
           text: "Статус",
           value: "Status",
@@ -126,10 +125,8 @@ export default defineComponent({
   mounted() {
     if (localStorage.getItem("dateBegin"))
       this.dateBegin = localStorage.getItem("dateBegin");
-    console.log(new Date(Date.parse(this.dateBegin)));
     if (localStorage.getItem("dateEnd"))
       this.dateEnd = localStorage.getItem("dateEnd");
-    console.log(this.dateEnd);
     this.getFullListClient();
   },
   unmounted() {
@@ -150,7 +147,6 @@ export default defineComponent({
     },
 
     getFullListClient() {
-      console.log("dfkdjfk");
       if (!this.dateBegin || !this.dateEnd) {
         this.errorReq = "Введите дату для запроса";
       } else {
@@ -167,17 +163,6 @@ export default defineComponent({
           this.loading = false;
         });
       }
-    },
-    getOrder() {
-      const params = {
-        Request: "GetOrder",
-        GUID: localStorage.getItem("GUID"),
-        GUID_Load: "447f96e1-81e9-11ed-9e14-00155d011400",
-      };
-
-      axios
-        .get(config.backendUrl, { params })
-        .then((response) => (this.orderInfo = response.data.data));
     },
   },
   computed: {

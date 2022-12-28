@@ -4,16 +4,12 @@
       <v-col class="justify-center">
         <v-card-title class="text-center mb-5">Смена пароля</v-card-title>
         <v-form>
-          <v-text-field
-            v-model="oldPass"
-            :rules="[required]"
-            label="Введите старый пароль"
-          />
-          <v-text-field v-model="newPass1" label="Введите новый пароль" />
-          <v-text-field
-            v-model="newPass2"
-            label="Введите новый пароль еще раз"
-          />
+          <span class="inputLabel">Введите старый пароль</span>
+          <v-text-field v-model="oldPass" :rules="[required]" />
+          <span class="inputLabel">Введите новый пароль</span>
+          <v-text-field v-model="newPass1" />
+          <span class="inputLabel">Введите новый пароль еще раз</span>
+          <v-text-field v-model="newPass2" />
           <v-alert
             color="#FEC64E"
             v-if="(infoChange !== '' && !infoChange?.ChangeOn) || errorPass"

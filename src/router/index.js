@@ -76,12 +76,6 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/GetOrderView"),
   },
   {
-    path: "/getFullListClient",
-    name: "Full list client",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../components/GetFullListClient"),
-  },
-  {
     path: "/writeOrder",
     name: "Write order",
     component: () =>

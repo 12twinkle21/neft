@@ -111,7 +111,7 @@ table {
   align-items: center;
 }
 
-.kek {
+.headerBtn {
   background-color: #000033;
   height: 80px;
   width: 63px;
@@ -143,6 +143,12 @@ table {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+
+.inputLabel{
+  font-weight: 500;
+  font-size: 14px;
+  margin-left: 5px;
 }
 
 .orderBtn {
@@ -182,4 +188,8 @@ table {
 }
 .v-card-subtitle{
   font-size: 20px !important;
+}
+
+.v-text-field input{
+  text-align: center !important;
 }

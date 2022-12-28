@@ -33,22 +33,22 @@
                 />
               </v-col>
             </v-row>
+            <span class="inputLabel">Список водителей</span>
             <v-autocomplete
               class="mt-4"
               filter
               :menu-props="{ maxHeight: 500 }"
-              label="Список водителей"
               :items="changeDriverList"
               v-model="selectedDriverFio"
             />
+            <span class="inputLabel">Список перевозчиков</span>
             <v-autocomplete
               filter
-              label="Список перевозчиков"
               :items="changeTransporterList"
               v-model="selectedTransporter"
             />
+            <span class="inputLabel">Плановая масса, число</span>
             <v-text-field
-              label="Плановая масса, число"
               type="number"
               v-model.number="weight"
               @change="checkWeight"
@@ -56,10 +56,14 @@
             <v-alert color="#FEC64E" v-if="errorW" class="mb-4">{{
               errorW
             }}</v-alert>
-            <v-text-field label="Госномер авто" v-model="autoNumber" />
-            <v-text-field label="Марка авто" v-model="autoName" />
-            <v-text-field label="Госномерприцепа" v-model="autoNumber2" />
-            <v-text-field label="Марка прицепа" v-model="autoName2" />
+            <span class="inputLabel">Госномер авто</span>
+            <v-text-field v-model="autoNumber" />
+            <span class="inputLabel">Марка авто</span>
+            <v-text-field v-model="autoName" />
+            <span class="inputLabel">Госномер прицепа</span>
+            <v-text-field v-model="autoNumber2" />
+            <span class="inputLabel">Марка прицепа</span>
+            <v-text-field v-model="autoName2" />
           </v-col>
         </v-row>
         <v-alert color="#FEC64E" v-if="error" class="mb-4">{{ error }}</v-alert>

@@ -5,18 +5,18 @@
         <v-card class="py-6 px-8 mx-auto" max-width="400">
           <v-card-subtitle class="text-center mb-5">Вход</v-card-subtitle>
           <v-form v-model="form" @submit.prevent="submit">
+            <span class="inputLabel">Логин</span>
             <v-text-field
               :readonly="loading"
               :rules="[required]"
-              label="Электронная почта"
               v-model="login"
             />
+            <span class="inputLabel">Пароль</span>
             <v-text-field
               class="w-100"
               :readonly="loading"
               :append-inner-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               :type="show1 ? 'text' : 'password'"
-              label="Пароль"
               @click:appendInner="show1 = !show1"
               v-model="password"
             />

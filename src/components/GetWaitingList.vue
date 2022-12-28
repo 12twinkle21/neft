@@ -32,10 +32,12 @@
           </v-col>
         </v-row>
       </v-row>
-      <v-row>
+      <v-row class="mt-5 mb-5">
         <v-col>
           <v-btn @click="getWaitingTs" class="mr-5">Поиск</v-btn>
-          <v-btn to="/writeDrivers">Машина не найдена</v-btn>
+          <v-btn to="/writeDrivers" v-if="group === 'Охрана'"
+            >Машина не найдена</v-btn
+          >
         </v-col>
       </v-row>
       <v-alert color="#FEC64E" v-if="errorReq" class="mb-4">{{
@@ -104,6 +106,7 @@ export default defineComponent({
       dateEnd: new Date(),
       columns: [
         { text: "Данные ТС", value: "Auto", sortable: true },
+        { text: "Статус", value: "Status", sortable: true },
         { text: "ФИО водителя", value: "FIO", sortable: true },
         { text: "Наименование контрагента", value: "Client", sortable: true },
         { text: "Наименование продукта", value: "Product", sortable: true },
@@ -115,6 +118,7 @@ export default defineComponent({
       loading: false,
       urlCarOpen: null,
       showUploadDialogSecurity: false,
+      group: localStorage.getItem("Group"),
     };
   },
   mounted() {
@@ -133,36 +137,19 @@ export default defineComponent({
     getWaitingTs() {
       this.loading = true;
       const params = {
-        Request: "GetWaitingList",
+        Request: this.group === "Охрана" ? "GetWaitingList" : "GetActiveList",
         Date_From: formatDate(this.dateBegin),
         Date_By: formatDate(this.dateEnd),
       };
 
       axios.get(config.backendUrl, { params }).then((response) => {
         this.loading = false;
-        console.log(response);
-        this.waitingTs = [
-          {
-            Auto: "СКАНИЯ Н084КР73 / Прицеп АН652773",
-            FIO: "Иванов Евгений Викторович",
-            Client: "КРОНА ООО",
-            Product: "Нефть сырая",
-            Weight: 0,
-            FactLoadDate: "0001-01-01T00:00:00",
-            Seal: "",
-            SampleSeal: "",
-            NomberTTN: "",
-            Error: "",
-            GUID_Load: "4b0a0636-850c-11ed-9e14-00155d011400",
-          },
-        ];
-        // this.waitingTs = response.data.data;
+        this.waitingTs = response.data.data;
       });
     },
   },
   computed: {
     waitingTsList() {
-      // return this.waitingTs.map((item) => {
       return this.waitingTs.map((item) => {
         if (item.Error.length > 0) {
           this.errorReq = item.Error;

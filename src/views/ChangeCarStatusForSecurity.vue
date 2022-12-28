@@ -72,26 +72,36 @@
         <div v-if="group === 'Оператор отгрузки'">
           <v-row>
             <v-col cols="5">
-              <h2 class="mb-5">Отметка о готовности к погрузке ТС</h2>
+              <v-btn class="mr-10" @click="getStatus">Обновить статус</v-btn>
+            </v-col>
+          </v-row>
+          <v-row
+            v-if="
+              getStatusInfo[0]?.Status === 'ТС досмотрено' ||
+              getStatusInfo[0]?.Status === 'ТС на погрузке'
+            "
+          >
+            <v-col cols="5">
+              <h3 class="ml-2">Действия</h3>
+            </v-col>
+          </v-row>
+          <v-row v-if="getStatusInfo[0]?.Status === 'ТС досмотрено'">
+            <v-col cols="5">
               <v-btn class="mr-10" @click="changeReadyForShipment"
                 >ТС на отгрузку</v-btn
               >
               <v-btn @click="changeReadyForShipment"
                 >Погрузка ТС невозможна</v-btn
               >
-              <v-btn class="mt-5" @click="changeTsOnHold"
-                >Отправить ТС на ожидание</v-btn
-              >
             </v-col>
           </v-row>
-          <v-row>
+          <v-row v-if="getStatusInfo[0]?.Status === 'ТС на погрузке'">
             <v-col cols="5">
               <h2 class="mb-5">Опломбирование ТС</h2>
-              <v-text-field v-model="numberOfSeal" label="Номер пломб" />
-              <v-text-field
-                v-model="numberOfSampleSeal"
-                label="Номер пломбы пробы"
-              />
+              <span class="inputLabel">Номер пломб</span>
+              <v-text-field v-model="numberOfSeal" />
+              <span class="inputLabel">Номер пломбы пробы</span>
+              <v-text-field v-model="numberOfSampleSeal" />
               <v-btn @click="onSeal">Опломбирование</v-btn>
             </v-col>
           </v-row>
@@ -117,7 +127,6 @@ export default defineComponent({
   data() {
     return {
       getTsArrivalInfo: "",
-      getTsOnHoldInfo: "",
       getInspectionInfo: [],
       getStatusInfo: "",
       numberOfSeal: "",
@@ -146,17 +155,6 @@ export default defineComponent({
       await axios
         .get(config.backendUrl, { params })
         .then((response) => (this.getTsArrivalInfo = response.data.data));
-      this.getStatus();
-    },
-    changeTsOnHold: async function () {
-      const params = {
-        Request: "SendOnHold",
-        GUID_Load: this.urlCarOpen,
-      };
-
-      await axios
-        .get(config.backendUrl, { params })
-        .then((response) => (this.getTsOnHoldInfo = response.data.data));
       this.getStatus();
     },
     changeCompleteInspection: async function (item) {
