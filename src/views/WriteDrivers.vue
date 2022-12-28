@@ -1,7 +1,10 @@
 <template>
   <v-container>
     <v-card class="page-card pa-5 flex-column">
-      <v-card-title class="mb-5">Отправка сообщения менеджеру</v-card-title>
+      <v-card-title class="mb-5">
+        <v-btn class="mr-3" to="/">Назад</v-btn>Отправка сообщения
+        менеджеру</v-card-title
+      >
       <v-text-field v-model="load" label="Контрагент" />
       <v-text-field v-model="fio" label="ФИО" />
       <v-text-field v-model="autoNumber" label="Номер авто" />

@@ -234,4 +234,8 @@ export default defineComponent({
 </script>
 <!-- http://localhost:8080/changeCarStatus/4b0a0636-850c-11ed-9e14-00155d011400 -->
 
-<style></style>
+<style scoped>
+.page-container {
+  border-radius: 10px;
+}
+</style>
