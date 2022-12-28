@@ -3,7 +3,7 @@
     <v-row class="w-100 h-100 align-center">
       <v-col class="justify-center">
         <v-card class="py-6 px-8 mx-auto" max-width="400">
-          <v-card-title class="text-center mb-5">Вход</v-card-title>
+          <v-card-subtitle class="text-center mb-5">Вход</v-card-subtitle>
           <v-form v-model="form" @submit.prevent="submit">
             <v-text-field
               :readonly="loading"

@@ -1,8 +1,6 @@
 <template>
-  <v-container>
-    <get-waiting-list />
-    <!-- <get-full-list-today /> -->
-  </v-container>
+  <get-waiting-list />
+  <!-- <get-full-list-today /> -->
 </template>
 
 <script>

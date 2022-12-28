@@ -41,6 +41,8 @@ export default {
     logout(state) {
       localStorage.removeItem("GUID");
       localStorage.removeItem("Group");
+      localStorage.removeItem("dateBegin");
+      localStorage.removeItem("dateEnd");
       state.isLoggedIn = false;
       state.user = emptyUser();
     },

@@ -17,7 +17,7 @@
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list-item>
         <v-list-item-content>
-          <v-card-title class="mt-4">{{ loggedUser.name }}</v-card-title>
+          <v-card-subtitle class="mt-8">{{ loggedUser.name }}</v-card-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>

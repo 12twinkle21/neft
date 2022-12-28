@@ -1,7 +1,9 @@
 <template>
   <v-container>
-    <v-row class="flex-column">
-      <v-card-title class="mb-5">Изменение заказа</v-card-title>
+    <v-card class="flex-column pa-5">
+      <v-card-title class="mb-5">
+        <v-btn class="mr-3" to="/">Назад</v-btn>Изменение заказа</v-card-title
+      >
       <v-form>
         <v-row>
           <v-col>
@@ -58,9 +60,11 @@
           </v-col>
         </v-row>
         <v-alert color="#FEC64E" v-if="error" class="mb-4">{{ error }}</v-alert>
-        <v-btn @click="changeOrder">Отправить данные</v-btn>
+        <v-btn class="customMainBtn" @click="changeOrder"
+          >Отправить данные</v-btn
+        >
       </v-form>
-    </v-row>
+    </v-card>
   </v-container>
 </template>
 

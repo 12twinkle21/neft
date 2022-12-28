@@ -1,8 +1,8 @@
 <template>
-  <v-dialog persistent hide-overlay v-model="show">
-    <v-window v-model="state" class="h-100">
+  <v-dialog hide-overlay v-model="show">
+    <v-window v-model="state" class="h-100 w-50 ma-auto">
       <v-container class="page-container">
-        <div class="d-flex justify-space-between">
+        <v-card-title class="d-flex justify-space-between align-center">
           <span class="ml-5 font-weight-bold">Информация</span>
           <v-btn
             icon="mdi-close"
@@ -11,7 +11,7 @@
             variant=""
             @click="$emit('updateShowDialog', false)"
           />
-        </div>
+        </v-card-title>
         <v-row>
           <v-col>
             <v-list :class="{ 'border-default': loading }">

@@ -1,19 +1,15 @@
 <template>
   <v-container>
-    <v-row class="flex-column">
-      <v-form>
-        <v-row>
-          <v-col cols="5">
-            <h2 class="mb-5">Отправка сообщения менеджеру</h2>
-            <v-text-field v-model="load" label="Контрагент" />
-            <v-text-field v-model="fio" label="ФИО" />
-            <v-text-field v-model="autoNumber" label="Номер авто" />
-            <v-text-field v-model="additionalInfo" label="Доп. информация" />
-            <v-btn @click="writeDriversMessage">Отправить сообщение</v-btn>
-          </v-col>
-        </v-row>
-      </v-form>
-    </v-row>
+    <v-card class="page-card pa-5 flex-column">
+      <v-card-title class="mb-5">Отправка сообщения менеджеру</v-card-title>
+      <v-text-field v-model="load" label="Контрагент" />
+      <v-text-field v-model="fio" label="ФИО" />
+      <v-text-field v-model="autoNumber" label="Номер авто" />
+      <v-text-field v-model="additionalInfo" label="Доп. информация" />
+      <v-btn class="customMainBtn" @click="writeDriversMessage"
+        >Отправить сообщение</v-btn
+      >
+    </v-card>
   </v-container>
 </template>
 
