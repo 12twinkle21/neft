@@ -29,8 +29,12 @@
               >
               <v-list-item>ФИО: {{ orderInfo[0]?.FIO }}</v-list-item>
               <v-list-item>Клиент : {{ orderInfo[0]?.Client }}</v-list-item>
-              <v-list-item>Продукт: {{ orderInfo[0]?.Product }}</v-list-item>
-              <v-list-item>Масса: {{ orderInfo[0]?.Weight }}</v-list-item>
+              <v-list-item v-if="group === 'Оператор отгрузки'"
+                >Продукт: {{ orderInfo[0]?.Product }}</v-list-item
+              >
+              <v-list-item v-if="group === 'Оператор отгрузки'"
+                >Масса: {{ orderInfo[0]?.Weight }}</v-list-item
+              >
               <v-list-item>Статус: {{ getStatusInfo[0]?.Status }}</v-list-item>
             </v-list>
           </v-col>
@@ -38,16 +42,30 @@
         <div v-if="group === 'Охрана'">
           <v-row>
             <v-col cols="5">
-              <v-btn class="mr-10" @click="changeTsArrival">ТС прибыло</v-btn>
-              <!--              <v-btn @click="changeTsOnHold">Отправить ТС на ожидание</v-btn>-->
+              <v-btn class="mr-10" @click="getStatus">Обновить статус</v-btn>
             </v-col>
           </v-row>
-          <v-row>
+          <v-row
+            v-if="
+              getStatusInfo[0]?.Status === 'Ожидается ТС' ||
+              getStatusInfo[0]?.Status === 'Пропуск ТС разрешен'
+            "
+          >
+            <v-col cols="5">
+              <h3 class="ml-2">Действия</h3>
+            </v-col>
+          </v-row>
+          <v-row v-if="getStatusInfo[0]?.Status === 'Ожидается ТС'">
+            <v-col cols="5">
+              <v-btn class="mr-10" @click="changeTsArrival">ТС прибыло</v-btn>
+            </v-col>
+          </v-row>
+          <v-row v-if="getStatusInfo[0]?.Status === 'Пропуск ТС разрешен'">
             <v-col cols="5">
               <v-btn class="mr-10" @click="changeCompleteInspection"
-                >ТС Досмотрено</v-btn
+                >ТС досмотрено</v-btn
               >
-              <v-btn @click="changeCompleteInspection">ТС не досмотрено</v-btn>
+              <v-btn @click="changeCompleteInspection">ТС недосмотрено</v-btn>
             </v-col>
           </v-row>
         </div>
@@ -60,6 +78,9 @@
               >
               <v-btn @click="changeReadyForShipment"
                 >Погрузка ТС невозможна</v-btn
+              >
+              <v-btn class="mt-5" @click="changeTsOnHold"
+                >Отправить ТС на ожидание</v-btn
               >
             </v-col>
           </v-row>
@@ -116,29 +137,29 @@ export default defineComponent({
   },
 
   methods: {
-    changeTsArrival() {
+    changeTsArrival: async function () {
       const params = {
         Request: "Arrival",
         GUID_Load: this.urlCarOpen,
       };
 
-      axios
+      await axios
         .get(config.backendUrl, { params })
         .then((response) => (this.getTsArrivalInfo = response.data.data));
       this.getStatus();
     },
-    changeTsOnHold() {
+    changeTsOnHold: async function () {
       const params = {
         Request: "SendOnHold",
         GUID_Load: this.urlCarOpen,
       };
 
-      axios
+      await axios
         .get(config.backendUrl, { params })
         .then((response) => (this.getTsOnHoldInfo = response.data.data));
       this.getStatus();
     },
-    changeCompleteInspection(item) {
+    changeCompleteInspection: async function (item) {
       let inspectionResult = null;
       if (item.target.innerHTML === "ТС Досмотрено") {
         inspectionResult = 0;
@@ -151,7 +172,7 @@ export default defineComponent({
         Result: inspectionResult,
       };
 
-      axios
+      await axios
         .get(config.backendUrl, { params })
         .then((response) => (this.getInspectionInfo = response.data.data));
       this.getStatus();

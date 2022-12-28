@@ -39,7 +39,6 @@
               :items="changeDriverList"
               v-model="selectedDriverFio"
             />
-            <v-text-field label="GUID заказа клиента" v-model="guidOrder" />
             <v-alert color="#FEC64E" v-if="errorGuidDrider" class="mb-4">{{
               errorGuidDrider
             }}</v-alert>

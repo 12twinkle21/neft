@@ -30,9 +30,9 @@
           </v-row>
         </v-row>
         <v-row>
-          <v-col class="flex-row align-center justify-center">
-            <v-btn @click="getWaitingTs" class="">Поиск</v-btn>
-            <v-btn @click="getWaitingTs" class="">Машина не найдена</v-btn>
+          <v-col class="mt-10">
+            <v-btn @click="getWaitingTs" class="mr-5">Поиск</v-btn>
+            <v-btn to="/writeDrivers">Машина не найдена</v-btn>
           </v-col>
         </v-row>
       </v-form>
