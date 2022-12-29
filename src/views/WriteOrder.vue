@@ -28,6 +28,7 @@
                   v-model="shippingTime"
                   format="HH:mm"
                   locale="ru"
+                  time-picker
                   autoApply
                   textInput
                 />
@@ -207,7 +208,9 @@ export default {
         bodyFormData.append("Shipping_Date", formatDate(this.shippingDate));
         bodyFormData.append(
           "Arrival_Time",
-          formatDate(this.shippingTime, true)
+          formatDate(this.shippingDate) +
+            " " +
+            formatDate(this.shippingTime, true)
         );
         bodyFormData.append("GUID_Driver", this.guidDriver);
         bodyFormData.append("Weight", this.weight);
@@ -231,9 +234,11 @@ export default {
         );
         console.log(
           "Arrival_Time",
-          formatDate(this.shippingTime, true),
+          formatDate(this.shippingDate) +
+            " " +
+            formatDate(this.shippingTime, true),
           "---",
-          typeof formatDate(this.shippingTime, true)
+          typeof formatDate(this.shippingDate)
         );
         console.log(
           "GUID_Driver",

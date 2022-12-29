@@ -6,17 +6,7 @@ export const formatDate = (date, partTime = false) => {
   const currMinutes = date.getMinutes();
 
   if (partTime) {
-    return (
-      addZeroDataNum(currDate) +
-      "." +
-      addZeroDataNum(currMonth) +
-      "." +
-      currYear +
-      " " +
-      addZeroDataNum(currHours) +
-      ":" +
-      addZeroDataNum(currMinutes)
-    );
+    return addZeroDataNum(currHours) + ":" + addZeroDataNum(currMinutes);
   } else
     return (
       addZeroDataNum(currDate) +

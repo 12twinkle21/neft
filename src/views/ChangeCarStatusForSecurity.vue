@@ -12,16 +12,6 @@
             @click="$emit('updateShowDialog', false)"
           />
         </v-card-title>
-        <v-row v-if="getStatusInfo[0]?.Status === 'ТС на погрузке'">
-          <v-col>
-            <h3 class="mb-2">Опломбирование ТС</h3>
-            <span class="inputLabel">Номер пломб</span>
-            <v-text-field v-model="numberOfSeal" />
-            <span class="inputLabel">Номер пломбы пробы</span>
-            <v-text-field v-model="numberOfSampleSeal" />
-            <v-btn class="w-100" @click="onSeal">Опломбирование</v-btn>
-          </v-col>
-        </v-row>
         <v-row>
           <v-col>
             <v-list :class="{ 'border-default': loading }" class="pt-1">
@@ -32,29 +22,40 @@
                 color="primary"
               ></v-progress-circular>
               <v-list-item
-                >Авто: {{ orderInfo[0]?.Auto.split("/")[0] }}</v-list-item
+                ><span class="boldChangeStatusText">Авто:</span>
+                {{ orderInfo[0]?.Auto.split("/")[0] }}</v-list-item
               >
               <v-list-item
-                >Прицеп: {{ orderInfo[0]?.Auto.split("/")[1] }}</v-list-item
+                ><span class="boldChangeStatusText">Прицеп:</span>
+                {{ orderInfo[0]?.Auto.split("/")[1] }}</v-list-item
               >
-              <v-list-item>ФИО: {{ orderInfo[0]?.FIO }}</v-list-item>
-              <v-list-item>Клиент : {{ orderInfo[0]?.Client }}</v-list-item>
+              <v-list-item
+                ><span class="boldChangeStatusText">ФИО:</span>
+                {{ orderInfo[0]?.FIO }}</v-list-item
+              >
+              <v-list-item
+                ><span class="boldChangeStatusText">Клиент :</span>
+                {{ orderInfo[0]?.Client }}</v-list-item
+              >
               <v-list-item v-if="group === 'Оператор отгрузки'"
-                >Продукт: {{ orderInfo[0]?.Product }}</v-list-item
+                ><span class="boldChangeStatusText">Продукт:</span>
+                {{ orderInfo[0]?.Product }}</v-list-item
               >
               <v-list-item v-if="group === 'Оператор отгрузки'"
-                >Масса: {{ orderInfo[0]?.Weight }}</v-list-item
+                ><span class="boldChangeStatusText">Масса:</span>
+                {{ orderInfo[0]?.Weight }}</v-list-item
               >
-              <v-list-item>Статус: {{ getStatusInfo[0]?.Status }}</v-list-item>
+              <v-list-item
+                ><span class="boldChangeStatusText">Статус:</span>
+                {{ getStatusInfo[0]?.Status }}</v-list-item
+              >
             </v-list>
           </v-col>
         </v-row>
         <div v-if="group === 'Охрана'">
           <v-row>
             <v-col>
-              <v-btn class="mr-10 w-100" @click="getStatus"
-                >Обновить статус</v-btn
-              >
+              <v-btn class="w-100" @click="getStatus">Обновить статус</v-btn>
             </v-col>
           </v-row>
           <v-row
@@ -64,7 +65,7 @@
             "
           >
             <v-col cols="5">
-              <h3 class="ml-2">Действия</h3>
+              <h3 class="mt-1">Действия</h3>
             </v-col>
           </v-row>
           <v-row v-if="getStatusInfo[0]?.Status === 'Ожидается ТС'">
@@ -74,10 +75,10 @@
           </v-row>
           <v-row v-if="getStatusInfo[0]?.Status === 'Пропуск ТС разрешен'">
             <v-col>
-              <v-btn class="w-100" @click="changeCompleteInspection"
+              <v-btn class="w-100" @click="changeCompleteInspection(0)"
                 >ТС досмотрено</v-btn
               >
-              <v-btn class="mt-5 w-100" @click="changeCompleteInspection"
+              <v-btn class="mt-5 w-100" @click="changeCompleteInspection(1)"
                 >ТС недосмотрено</v-btn
               >
             </v-col>
@@ -98,13 +99,23 @@
           </v-row>
           <v-row v-if="getStatusInfo[0]?.Status === 'ТС досмотрено'">
             <v-col>
-              <h3 class="">Действия</h3>
-              <v-btn class="mt-5 w-100" @click="changeReadyForShipment"
+              <h3 class="mt-1">Действия</h3>
+              <v-btn class="mt-3 w-100" @click="changeReadyForShipment(1)"
                 >ТС на отгрузку</v-btn
               >
-              <v-btn class="mt-5 w-100" @click="changeReadyForShipment"
+              <v-btn class="mt-3 w-100" @click="changeReadyForShipment(0)"
                 >Погрузка ТС невозможна</v-btn
               >
+            </v-col>
+          </v-row>
+          <v-row v-if="getStatusInfo[0]?.Status === 'ТС на погрузке'">
+            <v-col>
+              <h3 class="mb-2 mt-1">Опломбирование ТС</h3>
+              <span class="inputLabel">Номер пломб</span>
+              <v-text-field v-model="numberOfSeal" />
+              <span class="inputLabel">Номер пломбы пробы</span>
+              <v-text-field v-model="numberOfSampleSeal" />
+              <v-btn class="w-100" @click="onSeal">Опломбирование</v-btn>
             </v-col>
           </v-row>
         </div>
@@ -159,17 +170,11 @@ export default defineComponent({
         .then((response) => (this.getTsArrivalInfo = response.data.data));
       this.getStatus();
     },
-    changeCompleteInspection: async function (item) {
-      let inspectionResult = null;
-      if (item.target.innerHTML === "ТС Досмотрено") {
-        inspectionResult = 0;
-      } else if (item.target.innerHTML === "ТС не досмотрено") {
-        inspectionResult = 1;
-      }
+    changeCompleteInspection: async function (result) {
       const params = {
         Request: "CompletedInspection",
         GUID_Load: this.urlCarOpen,
-        Result: inspectionResult,
+        Result: result,
       };
 
       await axios
@@ -201,23 +206,19 @@ export default defineComponent({
         this.loading = false;
       });
     },
-    changeReadyForShipment(item) {
-      if (item.target.innerHTML === "ТС на отгрузку") {
-        this.readyShipmentResult = 1;
-      } else if (item.target.innerHTML === "Погрузка ТС невозможна") {
-        this.readyShipmentResult = 0;
-      }
+    changeReadyForShipment: async function (result) {
       const params = {
         Request: "ReadyShipment",
         GUID_Load: this.urlCarOpen,
-        Result: this.readyShipmentResult,
+        Result: result,
       };
 
-      axios
+      await axios
         .get(config.backendUrl, { params })
         .then((response) => (this.getShipmentInfo = response.data.data));
+      this.getStatus();
     },
-    onSeal() {
+    onSeal: async function () {
       const params = {
         Request: "Sealing",
         GUID_Load: this.urlCarOpen,
@@ -225,9 +226,10 @@ export default defineComponent({
         SampleSeal: this.numberOfSampleSeal,
       };
 
-      axios
+      await axios
         .get(config.backendUrl, { params })
         .then((response) => (this.getSealingInfo = response.data.data));
+      this.getStatus();
     },
   },
 });
