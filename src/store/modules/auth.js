@@ -24,6 +24,7 @@ export default {
         state.isLoggedIn = true;
         state.user.name = response.Group;
         localStorage.setItem("GUID", response.GUID);
+        localStorage.setItem("GUIDUser", response.GUIDUser);
         localStorage.setItem("Group", response.Group);
         state.GUID = response.GUID;
       } else {
@@ -41,6 +42,7 @@ export default {
     logout(state) {
       localStorage.removeItem("GUID");
       localStorage.removeItem("Group");
+      localStorage.removeItem("GUIDUser");
       localStorage.removeItem("dateBegin");
       localStorage.removeItem("dateEnd");
       state.isLoggedIn = false;

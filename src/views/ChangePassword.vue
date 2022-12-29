@@ -16,6 +16,9 @@
             class="mb-4"
             >{{ infoChange["Error"] }}{{ mess }}</v-alert
           >
+          <v-alert color="#FEC64E" v-if="infoChange?.ChangeOn" class="mb-4"
+            >Пароль успешно изменен</v-alert
+          >
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
@@ -49,7 +52,7 @@ export default {
       errorPass: false,
       infoChange: "",
       mess: "",
-      GUID: localStorage.getItem("GUID"),
+      GUID: localStorage.getItem("GUIDUser"),
     };
   },
   methods: {
@@ -57,7 +60,7 @@ export default {
       if (this.checkInputs()) {
         const bodyFormData = new FormData();
         bodyFormData.append("Request", "PassChange");
-        bodyFormData.append("GUID", this.GUID);
+        bodyFormData.append("GUIDUser", this.GUID);
         bodyFormData.append("NewPass", this.newPass2);
         return axios
           .post(config.backendUrl, bodyFormData)
