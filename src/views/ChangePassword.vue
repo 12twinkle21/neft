@@ -4,8 +4,6 @@
       <v-col class="justify-center">
         <v-card-title class="text-center mb-5">Смена пароля</v-card-title>
         <v-form>
-          <span class="inputLabel">Введите старый пароль</span>
-          <v-text-field v-model="oldPass" :rules="[required]" />
           <span class="inputLabel">Введите новый пароль</span>
           <v-text-field v-model="newPass1" />
           <span class="inputLabel">Введите новый пароль еще раз</span>
@@ -46,7 +44,6 @@ export default {
   name: "ChangePassword",
   data() {
     return {
-      oldPass: "",
       newPass1: "",
       newPass2: "",
       errorPass: false,

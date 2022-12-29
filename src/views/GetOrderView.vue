@@ -21,27 +21,51 @@
                 indeterminate
                 color="primary"
               ></v-progress-circular>
-              <v-list-item>Статус: {{ getStatusInfo[0]?.Status }}</v-list-item>
               <v-list-item
-                >Авто: {{ orderInfo[0]?.Auto.split("/")[0] }}</v-list-item
+                ><span class="boldChangeStatusText">Статус:</span>
+                {{ getStatusInfo[0]?.Status }}</v-list-item
               >
               <v-list-item
-                >Прицеп: {{ orderInfo[0]?.Auto.split("/")[1] }}</v-list-item
+                ><span class="boldChangeStatusText">Авто:</span>
+                {{ orderInfo[0]?.Auto.split("/")[0] }}</v-list-item
               >
-              <v-list-item>ФИО: {{ orderInfo[0]?.FIO }}</v-list-item>
-              <v-list-item>Клиент : {{ orderInfo[0]?.Client }}</v-list-item>
-              <v-list-item>Продукт: {{ orderInfo[0]?.Product }}</v-list-item>
-              <v-list-item>Масса: {{ orderInfo[0]?.Weight }}</v-list-item>
               <v-list-item
-                >Факстическое время отгрузки:
+                ><span class="boldChangeStatusText">Прицеп:</span>
+                {{ orderInfo[0]?.Auto.split("/")[1] }}</v-list-item
+              >
+              <v-list-item
+                ><span class="boldChangeStatusText">ФИО:</span>
+                {{ orderInfo[0]?.FIO }}</v-list-item
+              >
+              <v-list-item
+                ><span class="boldChangeStatusText">Клиент:</span>
+                {{ orderInfo[0]?.Client }}</v-list-item
+              >
+              <v-list-item
+                ><span class="boldChangeStatusText">Продукт:</span>
+                {{ orderInfo[0]?.Product }}</v-list-item
+              >
+              <v-list-item
+                ><span class="boldChangeStatusText">Масса:</span>
+                {{ orderInfo[0]?.Weight }}</v-list-item
+              >
+              <v-list-item
+                ><span class="boldChangeStatusText"
+                  >Факстическое время отгрузки:</span
+                >
                 {{ orderInfo[0]?.FactLoadDate }}</v-list-item
               >
-              <v-list-item>Пломба: {{ orderInfo[0]?.Seal }}</v-list-item>
               <v-list-item
-                >Номер пломбы пробы: {{ orderInfo[0]?.SampleSeal }}</v-list-item
+                ><span class="boldChangeStatusText">Пломба:</span>
+                {{ orderInfo[0]?.Seal }}</v-list-item
               >
               <v-list-item
-                >Номер ТТН: {{ orderInfo[0]?.NomberTTN }}</v-list-item
+                ><span class="boldChangeStatusText">Номер пломбы пробы:</span>
+                {{ orderInfo[0]?.SampleSeal }}</v-list-item
+              >
+              <v-list-item
+                ><span class="boldChangeStatusText">Номер ТТН:</span>
+                {{ orderInfo[0]?.NomberTTN }}</v-list-item
               >
             </v-list>
             <v-btn class="mt-10 customMainBtn" :to="linkToChange"

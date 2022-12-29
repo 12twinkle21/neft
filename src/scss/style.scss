@@ -197,3 +197,16 @@ table {
 .v-text-field input {
   text-align: center !important;
 }
+
+.boldChangeStatusText{
+  font-weight: 600;
+}
+
+.v-window__container{
+  text-align: center;
+
+  .v-row{
+    justify-content: center;
+  }
+}
+
