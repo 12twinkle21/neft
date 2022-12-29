@@ -1,5 +1,5 @@
 <template>
-  <v-container class="v-container-1000">
+  <v-container class="v-container-750">
     <v-card class="page-card pa-5">
       <v-card-title class="mb-5">Список ожидаемых ТС</v-card-title>
       <v-row class="flex-column w-50 mp-0">

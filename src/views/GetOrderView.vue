@@ -86,6 +86,7 @@ export default defineComponent({
   methods: {
     getStatus() {
       this.loading = true;
+      console.log(this.urlClientOpen, "urlClientOpen");
       const params = {
         Request: "GetStatus",
         GUID_Load: this.urlClientOpen,

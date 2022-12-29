@@ -28,6 +28,7 @@
                   v-model="shippingTime"
                   format="HH:mm"
                   locale="ru"
+                  time-picker
                   autoApply
                   textInput
                 />
