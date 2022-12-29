@@ -15,6 +15,10 @@ $style-primary-color: #565f74;
   width: 1000px;
 }
 
+.v-container-750 {
+  width: 750px;
+}
+
 .v-main {
   background-color: #d2d7df;
 }
@@ -145,7 +149,7 @@ table {
   cursor: pointer;
 }
 
-.inputLabel{
+.inputLabel {
   font-weight: 500;
   font-size: 14px;
   margin-left: 5px;
@@ -178,7 +182,7 @@ table {
 }
 .v-card-title {
   border: 1px solid $style-primary-color;
-  background-color: rgba(150, 158, 173, 0.4);;
+  background-color: rgba(150, 158, 173, 0.4);
 }
 .customMainBtn {
   display: flex;
@@ -186,10 +190,10 @@ table {
   width: fit-content !important;
   margin: 0 auto;
 }
-.v-card-subtitle{
+.v-card-subtitle {
   font-size: 20px !important;
 }
 
-.v-text-field input{
+.v-text-field input {
   text-align: center !important;
 }

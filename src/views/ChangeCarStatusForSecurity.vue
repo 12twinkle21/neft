@@ -12,9 +12,19 @@
             @click="$emit('updateShowDialog', false)"
           />
         </v-card-title>
+        <v-row v-if="getStatusInfo[0]?.Status === 'ТС на погрузке'">
+          <v-col>
+            <h3 class="mb-2">Опломбирование ТС</h3>
+            <span class="inputLabel">Номер пломб</span>
+            <v-text-field v-model="numberOfSeal" />
+            <span class="inputLabel">Номер пломбы пробы</span>
+            <v-text-field v-model="numberOfSampleSeal" />
+            <v-btn class="w-100" @click="onSeal">Опломбирование</v-btn>
+          </v-col>
+        </v-row>
         <v-row>
           <v-col>
-            <v-list :class="{ 'border-default': loading }">
+            <v-list :class="{ 'border-default': loading }" class="pt-1">
               <v-progress-circular
                 v-if="loading"
                 class="progressCircular"
@@ -41,8 +51,10 @@
         </v-row>
         <div v-if="group === 'Охрана'">
           <v-row>
-            <v-col cols="5">
-              <v-btn class="mr-10" @click="getStatus">Обновить статус</v-btn>
+            <v-col>
+              <v-btn class="mr-10 w-100" @click="getStatus"
+                >Обновить статус</v-btn
+              >
             </v-col>
           </v-row>
           <v-row
@@ -56,23 +68,25 @@
             </v-col>
           </v-row>
           <v-row v-if="getStatusInfo[0]?.Status === 'Ожидается ТС'">
-            <v-col cols="5">
-              <v-btn class="mr-10" @click="changeTsArrival">ТС прибыло</v-btn>
+            <v-col>
+              <v-btn class="w-100" @click="changeTsArrival">ТС прибыло</v-btn>
             </v-col>
           </v-row>
           <v-row v-if="getStatusInfo[0]?.Status === 'Пропуск ТС разрешен'">
-            <v-col cols="5">
-              <v-btn class="mr-10" @click="changeCompleteInspection"
+            <v-col>
+              <v-btn class="w-100" @click="changeCompleteInspection"
                 >ТС досмотрено</v-btn
               >
-              <v-btn @click="changeCompleteInspection">ТС недосмотрено</v-btn>
+              <v-btn class="mt-5 w-100" @click="changeCompleteInspection"
+                >ТС недосмотрено</v-btn
+              >
             </v-col>
           </v-row>
         </div>
         <div v-if="group === 'Оператор отгрузки'">
           <v-row>
-            <v-col cols="5">
-              <v-btn class="mr-10" @click="getStatus">Обновить статус</v-btn>
+            <v-col>
+              <v-btn class="w-100" @click="getStatus">Обновить статус</v-btn>
             </v-col>
           </v-row>
           <v-row
@@ -81,28 +95,16 @@
               getStatusInfo[0]?.Status === 'ТС на погрузке'
             "
           >
-            <v-col cols="5">
-              <h3 class="ml-2">Действия</h3>
-            </v-col>
           </v-row>
           <v-row v-if="getStatusInfo[0]?.Status === 'ТС досмотрено'">
-            <v-col cols="5">
-              <v-btn class="mr-10" @click="changeReadyForShipment"
+            <v-col>
+              <h3 class="">Действия</h3>
+              <v-btn class="mt-5 w-100" @click="changeReadyForShipment"
                 >ТС на отгрузку</v-btn
               >
-              <v-btn @click="changeReadyForShipment"
+              <v-btn class="mt-5 w-100" @click="changeReadyForShipment"
                 >Погрузка ТС невозможна</v-btn
               >
-            </v-col>
-          </v-row>
-          <v-row v-if="getStatusInfo[0]?.Status === 'ТС на погрузке'">
-            <v-col cols="5">
-              <h2 class="mb-5">Опломбирование ТС</h2>
-              <span class="inputLabel">Номер пломб</span>
-              <v-text-field v-model="numberOfSeal" />
-              <span class="inputLabel">Номер пломбы пробы</span>
-              <v-text-field v-model="numberOfSampleSeal" />
-              <v-btn @click="onSeal">Опломбирование</v-btn>
             </v-col>
           </v-row>
         </div>
@@ -235,5 +237,8 @@ export default defineComponent({
 <style scoped>
 .page-container {
   border-radius: 10px;
+}
+.v-list-item {
+  min-height: 30px;
 }
 </style>
