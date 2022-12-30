@@ -68,7 +68,10 @@
                 {{ orderInfo[0]?.NomberTTN }}</v-list-item
               >
             </v-list>
-            <v-btn class="mt-10 customMainBtn" :to="linkToChange"
+            <v-btn
+              v-if="getStatusInfo[0]?.Status === 'Ожидается ТС'"
+              class="mt-10 customMainBtn"
+              :to="linkToChange"
               >Изменить заказ</v-btn
             >
           </v-col>

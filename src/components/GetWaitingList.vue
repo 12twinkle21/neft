@@ -2,38 +2,36 @@
   <v-container class="v-container-750">
     <v-card class="page-card pa-5">
       <v-card-title class="mb-5">Список ожидаемых ТС</v-card-title>
-      <v-row class="flex-column w-50 mp-0">
-        <v-row>
-          <v-col>
-            <p class="carsInfo__inputTitle text-no-wrap">
-              Дата начала периода запроса
-            </p>
-            <Datepicker
-              id="datepicker"
-              v-model="dateBegin"
-              format="dd.MM.yyyy"
-              locale="ru"
-              autoApply
-              textInput
-            />
-          </v-col>
-          <v-col>
-            <p class="carsInfo__inputTitle text-no-wrap">
-              Дата окончания периода запроса
-            </p>
-            <Datepicker
-              id="datepicker"
-              v-model="dateEnd"
-              format="dd.MM.yyyy"
-              locale="ru"
-              autoApply
-              textInput
-            />
-          </v-col>
-        </v-row>
+      <v-row class="mp-0">
+        <v-col>
+          <p class="carsInfo__inputTitle text-no-wrap">
+            Дата начала периода запроса
+          </p>
+          <Datepicker
+            id="datepicker"
+            v-model="dateBegin"
+            format="dd.MM.yyyy"
+            locale="ru"
+            autoApply
+            textInput
+          />
+        </v-col>
+        <v-col>
+          <p class="carsInfo__inputTitle text-no-wrap">
+            Дата окончания периода запроса
+          </p>
+          <Datepicker
+            id="datepicker"
+            v-model="dateEnd"
+            format="dd.MM.yyyy"
+            locale="ru"
+            autoApply
+            textInput
+          />
+        </v-col>
       </v-row>
       <v-row class="mt-5 mb-5">
-        <v-col>
+        <v-col class="d-flex w-100 justify-space-between">
           <v-btn @click="getWaitingTs" class="mr-5">Поиск</v-btn>
           <v-btn to="/writeDrivers" v-if="group === 'Охрана'"
             >Машина не найдена</v-btn

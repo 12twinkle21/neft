@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="v-container-750">
     <v-card class="page-card pa-5 flex-column">
       <v-card-title class="mb-5">
         <v-btn class="mr-3" to="/">Назад</v-btn>Отправка сообщения

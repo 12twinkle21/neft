@@ -40,7 +40,7 @@
           </v-col>
         </v-row>
       </v-row>
-      <v-alert color="#FEC64E" v-if="errorReq" class="mb-4">{{
+      <v-alert color="#FEC64E" v-if="errorReq" class="mb-4 mt-4">{{
         errorReq
       }}</v-alert>
       <v-row>
