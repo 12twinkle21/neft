@@ -108,8 +108,7 @@
               >
             </v-col>
           </v-row>
-          <v-row v-if="1">
-            <!--          <v-row v-if="getStatusInfo[0]?.Status === 'ТС на погрузке'">-->
+          <v-row v-if="getStatusInfo[0]?.Status === 'ТС на погрузке'">
             <v-col>
               <h3 class="mb-2 mt-1">Опломбирование ТС</h3>
               <span class="inputLabel">Номер пломб</span>
