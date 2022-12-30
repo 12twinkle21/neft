@@ -108,13 +108,17 @@
               >
             </v-col>
           </v-row>
-          <v-row v-if="getStatusInfo[0]?.Status === 'ТС на погрузке'">
+          <v-row v-if="1">
+            <!--          <v-row v-if="getStatusInfo[0]?.Status === 'ТС на погрузке'">-->
             <v-col>
               <h3 class="mb-2 mt-1">Опломбирование ТС</h3>
               <span class="inputLabel">Номер пломб</span>
               <v-text-field v-model="numberOfSeal" />
               <span class="inputLabel">Номер пломбы пробы</span>
               <v-text-field v-model="numberOfSampleSeal" />
+              <v-alert color="#FEC64E" v-if="errorAuth" class="mb-4">{{
+                errorAuth
+              }}</v-alert>
               <v-btn class="w-100" @click="onSeal">Опломбирование</v-btn>
             </v-col>
           </v-row>
@@ -148,6 +152,7 @@ export default defineComponent({
       orderInfo: {},
       group: localStorage.getItem("Group"),
       loading: false,
+      errorAuth: "",
     };
   },
 
@@ -159,6 +164,9 @@ export default defineComponent({
   },
 
   methods: {
+    checkPlomb() {
+      return !this.numberOfSeal && !this.numberOfSampleSeal;
+    },
     changeTsArrival: async function () {
       const params = {
         Request: "Arrival",
@@ -219,17 +227,20 @@ export default defineComponent({
       this.getStatus();
     },
     onSeal: async function () {
-      const params = {
-        Request: "Sealing",
-        GUID_Load: this.urlCarOpen,
-        Seal: this.numberOfSeal,
-        SampleSeal: this.numberOfSampleSeal,
-      };
+      if (!this.checkPlomb()) {
+        this.errorAuth = "";
+        const params = {
+          Request: "Sealing",
+          GUID_Load: this.urlCarOpen,
+          Seal: this.numberOfSeal,
+          SampleSeal: this.numberOfSampleSeal,
+        };
 
-      await axios
-        .get(config.backendUrl, { params })
-        .then((response) => (this.getSealingInfo = response.data.data));
-      this.getStatus();
+        await axios
+          .get(config.backendUrl, { params })
+          .then((response) => (this.getSealingInfo = response.data.data));
+        this.getStatus();
+      } else this.errorAuth = "Заполните поля";
     },
   },
 });

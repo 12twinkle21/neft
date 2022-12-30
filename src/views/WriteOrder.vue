@@ -68,6 +68,7 @@
           </v-col>
         </v-row>
         <v-alert color="#FEC64E" v-if="error" class="mb-4">{{ error }}</v-alert>
+        <v-alert color="#FEC64E" v-if="mess" class="mb-4">{{ mess }}</v-alert>
         <v-btn class="customMainBtn" @click="sendAutoInfo"
           >Отправить данные</v-btn
         >
@@ -102,6 +103,7 @@ export default {
       selectedDriverFio: "",
       error: "",
       errorW: "",
+      mess: "",
     };
   },
   mounted() {
@@ -201,6 +203,7 @@ export default {
     sendAutoInfo() {
       if (this.checkError) {
         this.error = "";
+        this.mess = "";
         const bodyFormData = new FormData();
         bodyFormData.append("Request", "WriteOrder");
         bodyFormData.append("GUID_Order", this.guidOrder);
@@ -219,54 +222,12 @@ export default {
         bodyFormData.append("Auto_Number2", this.autoNumber2);
         bodyFormData.append("Auto_Name2", this.autoName2);
 
-        console.log("GUID_Order", this.guidOrder, "---", typeof this.guidOrder);
-        console.log(
-          "GUID_Transporter",
-          this.guidTransporter,
-          "---",
-          typeof this.guidTransporter
-        );
-        console.log(
-          "Shipping_Date",
-          formatDate(this.shippingDate),
-          "---",
-          typeof formatDate(this.shippingDate)
-        );
-        console.log(
-          "Arrival_Time",
-          formatDate(this.shippingDate) +
-            " " +
-            formatDate(this.shippingTime, true),
-          "---",
-          typeof formatDate(this.shippingDate)
-        );
-        console.log(
-          "GUID_Driver",
-          this.guidDriver,
-          "---",
-          typeof this.guidDriver
-        );
-        console.log("Weight", this.weight, "---", typeof this.weight);
-        console.log(
-          "Auto_Number",
-          this.autoNumber,
-          "---",
-          typeof this.autoNumber
-        );
-        console.log("Auto_Name", this.autoName, "---", typeof this.autoName);
-        console.log(
-          "Auto_Number2",
-          this.autoNumber2,
-          "---",
-          typeof this.autoNumber2
-        );
-        console.log("Auto_Name2", this.autoName2, "---", typeof this.autoName2);
-
         axios.post(config.backendUrl, bodyFormData).then((response) => {
           if (response.data.data[0].Error) {
             this.error = response.data.data[0].Error;
           } else {
             this.getInfo = response.data;
+            this.mess = "Заказ успешно добавлен";
             this.error = "";
           }
         });
