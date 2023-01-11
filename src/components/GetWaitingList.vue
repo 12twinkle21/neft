@@ -57,7 +57,10 @@
             theme-color="#969EAD"
             :loading="loading"
           >
-            <template #item-action="{ urlCarOpen }">
+            <template
+              v-if="waitingTsList.length > 1"
+              #item-action="{ urlCarOpen }"
+            >
               <v-btn
                 class="orderBtn orderBtnSec"
                 icon="mdi-chart-line"

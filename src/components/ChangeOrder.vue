@@ -179,6 +179,7 @@ export default {
           } else {
             this.getInfo = response.data;
             this.error = "";
+            alert("Заказ успешно изменен");
           }
         });
       } else {

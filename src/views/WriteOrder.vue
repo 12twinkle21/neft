@@ -229,6 +229,14 @@ export default {
             this.getInfo = response.data;
             this.mess = "Заказ успешно добавлен";
             this.error = "";
+            alert("Заказ успешно добавлен");
+            this.selectedDriverFio = "";
+            this.selectedTransporter = "";
+            this.weight = null;
+            this.autoNumber = "";
+            this.autoName = "";
+            this.autoNumber2 = "";
+            this.autoName2 = "";
           }
         });
       } else {
