@@ -39,7 +39,7 @@
               class="mt-4"
               filter
               :menu-props="{ maxHeight: 500 }"
-              :items="changeDriverList"
+              :items="changeDriverList()"
               v-model="selectedDriverFio"
             />
             <span class="inputLabel">Список перевозчиков</span>
@@ -88,6 +88,7 @@ export default {
     return {
       shippingDate: new Date(),
       shippingTime: new Date(),
+      thisHours: new Date().getHours(),
       guidOrder: "",
       guidDriver: "",
       guidTransporter: "",
@@ -104,11 +105,13 @@ export default {
       error: "",
       errorW: "",
       mess: "",
+      updateDriverList: "",
     };
   },
   mounted() {
     this.getTransporterList();
     this.searchDrivers();
+    this.shippingTime = { hours: this.thisHours, minutes: 0 };
   },
   computed: {
     checkError() {
@@ -130,13 +133,6 @@ export default {
       }
       return changeTL;
     },
-    changeDriverList() {
-      let changeTL = [];
-      for (const key in this.driversList) {
-        changeTL.push(this.driversList[key].FIO);
-      }
-      return changeTL;
-    },
   },
   watch: {
     selectedDriverFio() {
@@ -145,6 +141,12 @@ export default {
     },
     selectedTransporter() {
       this.searchTransporterGuid();
+    },
+    shippingDate() {
+      this.searchDrivers();
+      this.getGuidDriver();
+      this.getGuidOrder();
+      this.changeDriverList();
     },
   },
   methods: {
@@ -158,11 +160,21 @@ export default {
         }
       }
     },
+    changeDriverList() {
+      let changeTL = [];
+      for (const key in this.driversList) {
+        changeTL.push(
+          `${this.driversList[key].FIO} (${this.driversList[key].Number_pr})`
+        );
+      }
+      return changeTL;
+    },
     getGuidOrder() {
       for (const key in this.driversList) {
         if (
-          this.driversList[key].FIO.toLowerCase() ===
-          this.selectedDriverFio.toLowerCase()
+          `${this.driversList[key].FIO.toLowerCase()} (${
+            this.driversList[key].Number_pr
+          })` === this.selectedDriverFio.toLowerCase()
         ) {
           this.guidOrder = this.driversList[key].GUID_Order;
         }
@@ -171,8 +183,9 @@ export default {
     getGuidDriver() {
       for (const key in this.driversList) {
         if (
-          this.driversList[key].FIO.toLowerCase() ===
-          this.selectedDriverFio.toLowerCase()
+          `${this.driversList[key].FIO.toLowerCase()} (${
+            this.driversList[key].Number_pr
+          })` === this.selectedDriverFio.toLowerCase()
         ) {
           this.guidDriver = this.driversList[key].GUID_Driver;
         }
@@ -201,6 +214,8 @@ export default {
         .then((response) => (this.transporterList = response.data.data));
     },
     sendAutoInfo() {
+      let checkArrivalTime1 = Object.values(this.shippingTime)[0] < 10 ? 0 : "";
+      let checkArrivalTime2 = Object.values(this.shippingTime)[1] < 10 ? 0 : "";
       if (this.checkError) {
         this.error = "";
         this.mess = "";
@@ -213,7 +228,11 @@ export default {
           "Arrival_Time",
           formatDate(this.shippingDate) +
             " " +
-            formatDate(this.shippingTime, true)
+            checkArrivalTime1 +
+            Object.values(this.shippingTime)[0] +
+            ":" +
+            checkArrivalTime2 +
+            Object.values(this.shippingTime)[1]
         );
         bodyFormData.append("GUID_Driver", this.guidDriver);
         bodyFormData.append("Weight", this.weight);

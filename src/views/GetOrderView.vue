@@ -69,7 +69,10 @@
               >
             </v-list>
             <v-btn
-              v-if="getStatusInfo[0]?.Status === 'Ожидается ТС'"
+              v-if="
+                getStatusInfo[0]?.Status === 'Ожидается ТС' ||
+                getStatusInfo[0]?.Status === 'Нет статусного состояния'
+              "
               class="mt-10 customMainBtn"
               :to="linkToChange"
               >Изменить заказ</v-btn

@@ -84,6 +84,7 @@ export default {
     return {
       shippingDate: new Date(),
       shippingTime: new Date(),
+      thisHours: new Date().getHours(),
       guidOrder: "",
       guidDriver: "",
       weight: null,
@@ -106,6 +107,12 @@ export default {
       this.getGuidOrder();
       this.getGuidDriver();
     },
+    shippingDate() {
+      this.searchDrivers();
+      this.getGuidDriver();
+      this.getGuidOrder();
+      this.changeDriverList();
+    },
   },
   computed: {
     checkError() {
@@ -123,7 +130,9 @@ export default {
     changeDriverList() {
       let changeTL = [];
       for (const key in this.driversList) {
-        changeTL.push(this.driversList[key].FIO);
+        changeTL.push(
+          `${this.driversList[key].FIO} (${this.driversList[key].Number_pr})`
+        );
       }
       return changeTL;
     },
@@ -132,8 +141,9 @@ export default {
     getGuidOrder() {
       for (const key in this.driversList) {
         if (
-          this.driversList[key].FIO.toLowerCase() ===
-          this.selectedDriverFio.toLowerCase()
+          `${this.driversList[key].FIO.toLowerCase()} (${
+            this.driversList[key].Number_pr
+          })` === this.selectedDriverFio.toLowerCase()
         ) {
           this.errorGuidDrider = "";
           this.guidOrder = this.driversList[key].GUID_Order;
@@ -153,6 +163,8 @@ export default {
         .then((response) => (this.driversList = response.data.data));
     },
     changeOrder() {
+      let checkArrivalTime1 = Object.values(this.shippingTime)[0] < 10 ? 0 : "";
+      let checkArrivalTime2 = Object.values(this.shippingTime)[1] < 10 ? 0 : "";
       if (this.checkError) {
         this.errorGuidDrider = "";
         this.error = "";
@@ -165,7 +177,11 @@ export default {
           "Arrival_Time",
           formatDate(this.shippingDate) +
             " " +
-            formatDate(this.shippingTime, true)
+            checkArrivalTime1 +
+            Object.values(this.shippingTime)[0] +
+            ":" +
+            checkArrivalTime2 +
+            Object.values(this.shippingTime)[1]
         );
         bodyFormData.append("GUID_Driver", this.guidDriver);
         bodyFormData.append("Weight", this.weight);
@@ -189,8 +205,9 @@ export default {
     getGuidDriver() {
       for (const key in this.driversList) {
         if (
-          this.driversList[key].FIO.toLowerCase() ===
-          this.selectedDriverFio.toLowerCase()
+          `${this.driversList[key].FIO.toLowerCase()} (${
+            this.driversList[key].Number_pr
+          })` === this.selectedDriverFio.toLowerCase()
         ) {
           this.guidDriver = this.driversList[key].GUID_Driver;
         }
@@ -232,6 +249,7 @@ export default {
     this.getOrder();
     this.searchDrivers();
     this.getGuidOrder();
+    this.shippingTime = { hours: this.thisHours, minutes: 0 };
   },
 };
 </script>

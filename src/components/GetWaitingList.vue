@@ -149,6 +149,14 @@ export default defineComponent({
       });
     },
   },
+  watch: {
+    showUploadDialogSecurity() {
+      if (!this.showUploadDialogSecurity) {
+        this.getWaitingTs();
+      }
+    },
+  },
+
   computed: {
     waitingTsList() {
       return this.waitingTs.map((item) => {

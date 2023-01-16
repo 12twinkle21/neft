@@ -176,6 +176,7 @@ export default defineComponent({
         .get(config.backendUrl, { params })
         .then((response) => (this.getTsArrivalInfo = response.data.data));
       this.getStatus();
+      this.$emit("updateShowDialog", false);
     },
     changeCompleteInspection: async function (result) {
       const params = {
@@ -188,6 +189,7 @@ export default defineComponent({
         .get(config.backendUrl, { params })
         .then((response) => (this.getInspectionInfo = response.data.data));
       this.getStatus();
+      this.$emit("updateShowDialog", false);
     },
     getStatus() {
       this.loading = true;
@@ -224,6 +226,7 @@ export default defineComponent({
         .get(config.backendUrl, { params })
         .then((response) => (this.getShipmentInfo = response.data.data));
       this.getStatus();
+      this.$emit("updateShowDialog", false);
     },
     onSeal: async function () {
       if (!this.checkPlomb()) {
@@ -239,6 +242,7 @@ export default defineComponent({
           .get(config.backendUrl, { params })
           .then((response) => (this.getSealingInfo = response.data.data));
         this.getStatus();
+        this.$emit("updateShowDialog", false);
       } else this.errorAuth = "Заполните поля";
     },
   },
