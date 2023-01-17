@@ -58,7 +58,7 @@
             :loading="loading"
           >
             <template
-              v-if="waitingTsList.length > 1"
+              v-if="waitingTsList.length >= 1"
               #item-action="{ urlCarOpen }"
             >
               <v-btn
